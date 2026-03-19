@@ -37,21 +37,22 @@ public class Pila {
     }
 
     public Object obtenerTope (){
-        Object elem; 
-        if (this.tope > -1 ) {
-           elem = this.arreglo[this.tope];
-        }else{
+        Object elem;
+        
+        if (this.tope > -1 ) {                          //Comprueba que no este vacio y 
+           elem = this.arreglo[this.tope];              //copia el elemento del tope a elem y lo retorna
+        }else{                                          // sino retorna null
             elem = null;
         }
         return elem;
     }
-    public void vaciar(){
-        while (this.tope > -1) {
+    public void vaciar(){                              //Vacia la pila iterativamente
+        while (this.tope > -1) {                       //coloca null en cada tope y va decreciendo el tope
             this.arreglo[this.tope] = null;
             this.tope--;
         }
     }
-    public boolean esVacia(){
+    public boolean esVacia(){                       // comprueba si el tope es -1, si lo es retorna true, sino false
         boolean exito = false;
         if (this.tope == -1) {
             exito = true;
@@ -61,8 +62,9 @@ public class Pila {
     }
     public Pila clone(){
         Pila n = new Pila();
-        for(int i=0;i<=this.tope;i++){
-            
+        // si tope es -1 no clona nada xq esta vacia
+        // sino, itera desde el tope hasta 0, copiando cada elemento a la nueva pila y aumentando el tope de esta
+        for(int i=0; i<=this.tope ; i++){ 
             n.arreglo[i]=this.arreglo[i];
             n.tope++;
         }

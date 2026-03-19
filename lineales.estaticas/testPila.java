@@ -12,6 +12,13 @@ public class testPila {
         p.apilar(6);
         p.apilar(3);
         p.apilar(1);
+        //clono p y creo p2
+        Pila p2 = p.clone();
+
+        System.out.println(p2.obtenerTope());
+        
+
+
 
         System.out.println(Capicua(p));
        
