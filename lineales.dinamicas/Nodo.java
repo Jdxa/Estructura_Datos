@@ -2,9 +2,9 @@ public class Nodo {
     private Object dato;
     private Nodo enlace;
 
-    public Nodo(Object dato) {
+    public Nodo(Object dato, Nodo enlace) {
         this.dato = dato;
-        this.enlace = null;
+        this.enlace = enlace;
     }
 
     public Object getDato() {
