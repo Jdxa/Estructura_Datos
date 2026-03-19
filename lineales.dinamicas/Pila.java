@@ -49,8 +49,9 @@ public class Pila {
                 n.tope = nuevoNodo;
                 nodoAnterior = nodoActual;
             }else{
-                nodoAnterior.setEnlace(nuevoNodo);
                 n.tope = nuevoNodo;
+                nodoAnterior.setEnlace(nuevoNodo);
+                nodoAnterior = nodoActual;
             }
             
             nodoActual = nodoActual.getEnlace();
