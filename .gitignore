@@ -1,0 +1,16 @@
+
+.vscode/
+
+
+*.class
+*.jar
+*.war
+
+
+target/
+build/
+bin/
+
+
+.DS_Store
+Thumbs.db
