@@ -13,3 +13,17 @@ bin/
 
 .DS_Store
 Thumbs.db
+.vscode/
+bin/
+
+*.class
+*.jar
+*.war
+
+
+target/
+build/
+
+
+.DS_Store
+Thumbs.db
