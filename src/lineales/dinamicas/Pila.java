@@ -59,5 +59,15 @@ public class Pila {
         }        
         return n;
     }
+    public String toString(){
+        String s = "[";
+        Nodo nodoActual = this.tope;
+        while (nodoActual != null) {
+            s += nodoActual.getDato() + " ";
+            nodoActual = nodoActual.getEnlace();
+        }
+            s += "]";
+        return s;
+    }
 
 }

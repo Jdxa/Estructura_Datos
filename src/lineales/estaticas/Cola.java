@@ -58,16 +58,26 @@ public class Cola {
         }
     }
     public Cola clone(){
-        int nFrente = this.frente;
-        int nFinale = this.finale; 
-        Cola n = new Cola();  
-        n.frente = nFrente;
-        n.finale = nFinale;    
-        while (nFrente != nFinale) {
-            n.arr[nFrente] = this.arr[nFrente];
-            nFrente = (nFrente+1) % TAMANIO;
+        Cola clon = new Cola();                     //creo una nueva cola
+        clon.arr = new Object[TAMANIO];             //creo un nuevo arreglo para la nueva cola
+        for (int i = 0; i < TAMANIO; i++) {         //copio los elementos del arreglo de la cola original al nuevo arreglo
+            clon.arr[i] = this.arr[i];
         }
-        return n;
+        clon.frente = this.frente;                 //copio el valor del frente de la cola original al nuevo frente
+        clon.finale = this.finale;           //copio el valor del final de la cola original al nuevo final          
+        return clon;
+    }
+    public String toString(){
+        String cadena = "[";
+        if (this.arr[frente] != null) {
+            int i = this.frente;
+            while (i != this.finale) {
+                cadena += this.arr[i] + ", ";
+                i = (i + 1) % TAMANIO;
+            }
+        }
+        cadena += "]";
+        return cadena;
     }
 
 }
