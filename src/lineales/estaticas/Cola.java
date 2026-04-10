@@ -69,5 +69,14 @@ public class Cola {
         }
         return n;
     }
+    public String toString(){
+        String s = "";
+        int i = this.frente;
+        while (i != this.finale) {
+            s += this.arr[i] + " ";
+            i = (i+1) % TAMANIO;
+        }
+        return s;
+    }
 
 }

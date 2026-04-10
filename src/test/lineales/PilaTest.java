@@ -21,7 +21,6 @@ import lineales.estaticas.*;
   * para una pila donde los elemenos apilados fueron 1, 2 y 3 en ese orden.
   * El texto de salida del toString() puede contener cualquier otro texto antes o despues de la subcadena anterior.
   */
-  
 public class PilaTest {
 
     private static boolean isSubstring(String s, String rx){
