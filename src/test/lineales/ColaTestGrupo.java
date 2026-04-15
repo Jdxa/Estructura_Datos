@@ -1,15 +1,15 @@
 package test.lineales;
 import org.junit.Test;
-// import org.junit.experimental.theories.suppliers.TestedOn;
-
 import static org.junit.Assert.*;
+import lineales.dinamicas.*;
 
-// import java.util.regex.Matcher;
-// import java.util.regex.Pattern;
-
-import lineales.estaticas.*;
 public class ColaTestGrupo{
-
+    /************* Autores ***********
+    Joaquin Aguilera, Legajo FAI-4550
+    Lucas Peroni, Legajo FAI-5499
+    Miguel Mudarra Sucre, Legajo FAI-5172
+    Santiago Lencina, Legajo FAI-5789
+*/
     @Test
     public void testCreateEmptyQueue() {
         Cola c = new Cola();

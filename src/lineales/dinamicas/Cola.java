@@ -1,6 +1,12 @@
 package lineales.dinamicas;
 
 public class Cola {
+        /************* Autores ***********
+    Joaquin Aguilera, Legajo FAI-4550
+    Lucas Peroni, Legajo FAI-5499
+    Miguel Mudarra Sucre, Legajo FAI-5172
+    Santiago Lencina, Legajo FAI-5789
+*/
     private Nodo frente;
     private Nodo fin;
     
@@ -71,4 +77,20 @@ public class Cola {
         
         return clon;
     }
+    public String toString(){
+        String s = "[";
+        Nodo nodoActual = this.frente;
+        while (nodoActual != null) {
+            if (nodoActual.getEnlace() != null) {
+                s += nodoActual.getDato() + ",";
+            }else{
+                s += nodoActual.getDato();
+            }
+            
+            nodoActual = nodoActual.getEnlace();
+        }
+        s += "]";
+        return s;
+    }
+    
 }

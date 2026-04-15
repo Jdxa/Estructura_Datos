@@ -1,5 +1,12 @@
 package lineales.estaticas;
 public class Cola {
+    /************* Autores ***********
+    Joaquin Aguilera, Legajo FAI-4550
+    Lucas Peroni, Legajo FAI-5499
+    Miguel Mudarra Sucre, Legajo FAI-5172
+    Santiago Lencina, Legajo FAI-5789
+*/
+
     private int frente;
     private int finale;
     private static final int TAMANIO = 10; 
@@ -69,11 +76,10 @@ public class Cola {
     }
     public String toString(){
         String cadena = "[";
-        if (this.arr[frente] != null) {
-            int i = this.frente;
-            while (i != this.finale) {
-                cadena += this.arr[i] + ", ";
-                i = (i + 1) % TAMANIO;
+        for (int i = this.frente; i != this.finale; i = (i + 1) % TAMANIO) { //itero desde el frente hasta el final, sumando 1 a i, si i llega a la ultima pos lo pone en 0
+            cadena += this.arr[i]; //agrego el elemento del arreglo a la cadena
+            if ((i + 1) % TAMANIO != this.finale) { //si el siguiente elemento no es el final, agrego una coma a la cadena
+                cadena += ",";
             }
         }
         cadena += "]";

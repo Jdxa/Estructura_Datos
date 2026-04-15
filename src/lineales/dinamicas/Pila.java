@@ -1,5 +1,11 @@
 package lineales.dinamicas;
 public class Pila {
+        /************* Autores ***********
+    Joaquin Aguilera, Legajo FAI-4550
+    Lucas Peroni, Legajo FAI-5499
+    Miguel Mudarra Sucre, Legajo FAI-5172
+    Santiago Lencina, Legajo FAI-5789
+*/
     private Nodo tope;
 
     public Pila(){
@@ -39,31 +45,38 @@ public class Pila {
         }
         return elem;
     }
-    public Pila clone(){
-        //TESTEAR
-        Pila n = new Pila();
-        Nodo nodoActual = this.tope;
-        Nodo nodoAnterior = null;
-        while (nodoActual != null) {
-            Nodo nuevoNodo = new Nodo(nodoActual.getDato(), null);
-            if (nodoAnterior == null) {
-                n.tope = nuevoNodo;
-                nodoAnterior = nodoActual;
-            }else{
-                n.tope = nuevoNodo;
-                nodoAnterior.setEnlace(nuevoNodo);
-                nodoAnterior = nodoActual;
-            }
-            
-            nodoActual = nodoActual.getEnlace();
-        }        
-        return n;
+   public Pila clone() {
+    Pila clon = new Pila();
+
+    if (this.tope != null) {
+        // Crear el primer nodo
+        clon.tope = new Nodo(this.tope.getDato(), null);
+
+        Nodo actualOriginal = this.tope.getEnlace();
+        Nodo actualClon = clon.tope;
+
+        // Recorrer y copiar
+        while (actualOriginal != null) {
+            Nodo nuevo = new Nodo(actualOriginal.getDato(), null);
+            actualClon.setEnlace(nuevo);
+
+            actualClon = nuevo;
+            actualOriginal = actualOriginal.getEnlace();
+        }
     }
+
+    return clon;
+}
+
     public String toString(){
         String s = "[";
         Nodo nodoActual = this.tope;
         while (nodoActual != null) {
-            s += nodoActual.getDato() + " ";
+            if (nodoActual.getEnlace() != null) {
+                s += nodoActual.getDato() + ",";
+            }else{
+                s += nodoActual.getDato();
+            }
             nodoActual = nodoActual.getEnlace();
         }
             s += "]";

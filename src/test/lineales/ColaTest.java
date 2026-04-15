@@ -5,8 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
-import lineales.estaticas.*;
-
+import lineales.dinamicas.*;
 /**
  *
  * @author Catedra EDAT - FAI - UNCOMA

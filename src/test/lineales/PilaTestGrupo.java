@@ -1,9 +1,15 @@
 package test.lineales;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import lineales.estaticas.*;
+import lineales.dinamicas.*;
 
 public class PilaTestGrupo{
+        /************* Autores ***********
+    Joaquin Aguilera, Legajo FAI-4550
+    Lucas Peroni, Legajo FAI-5499
+    Miguel Mudarra Sucre, Legajo FAI-5172
+    Santiago Lencina, Legajo FAI-5789
+*/
     private Pila load_stack(String elements, char separator) {
         Pila p = new Pila();
         int lengthElements = elements.length();

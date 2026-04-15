@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // import lineales.entregas.WeimbergerBacciNehuelLammel.estaticas.*;
-import lineales.estaticas.*;
+import lineales.dinamicas.*;
 /**
  *
  * @author Catedra EDAT - FAI - UNCOMA
