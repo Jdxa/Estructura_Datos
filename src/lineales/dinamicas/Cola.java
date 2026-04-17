@@ -67,8 +67,6 @@ public class Cola {
                 //iteracion
                 nodoActual = nodoActual.getEnlace();
             }
-     
-        
         return clon;
     }
 }

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 // import java.util.regex.Matcher;
 // import java.util.regex.Pattern;
 
-import lineales.estaticas.*;
+import lineales.dinamicas.*;
 public class ColaTest{
 
     @Test
@@ -47,9 +47,10 @@ public class ColaTest{
         assertEquals(s, true);
         assertEquals(c.esVacia(), true);
     }
+
     @Test
     public void testDequeueInQueueWithSomeElements() {
-       Cola c = new Cola();
+        Cola c = new Cola();
         c.poner(1);
         c.poner(2);
         boolean s = c.sacar();
