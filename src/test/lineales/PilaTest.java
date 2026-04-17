@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // import lineales.entregas.WeimbergerBacciNehuelLammel.estaticas.*;
-import lineales.dinamicas.*;
+import lineales.estaticas.*;
 /**
  *
  * @author Catedra EDAT - FAI - UNCOMA
@@ -21,7 +21,6 @@ import lineales.dinamicas.*;
   * para una pila donde los elemenos apilados fueron 1, 2 y 3 en ese orden.
   * El texto de salida del toString() puede contener cualquier otro texto antes o despues de la subcadena anterior.
   */
-  
 public class PilaTest {
 
     private static boolean isSubstring(String s, String rx){
