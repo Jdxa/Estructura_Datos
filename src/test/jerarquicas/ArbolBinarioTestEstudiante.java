@@ -9,14 +9,14 @@ import jerarquicas.ArbolBin;
 public class ArbolBinarioTestEstudiante {
     // *mejorar usando metodos auxiliares
     @Test
-    public void insertarArbolVacio(){
+    public void testInsertarArbolVacio(){
         ArbolBin arb = new ArbolBin();
         boolean ev = arb.insertar(1,null,'a');
         assertEquals(true,ev);
     }
     
     @Test
-    public void insertarArbolHijoIzq(){
+    public void testInsertarArbolHijoIzq(){
         ArbolBin arb = new ArbolBin();
         arb.insertar(1,null,'a');
         boolean ev = arb.insertar(2, 1, 'I');
@@ -30,7 +30,7 @@ public class ArbolBinarioTestEstudiante {
         assertEquals(l.toString(),l2.toString() );
     }
     @Test
-    public void insertarHijoDerecho(){
+    public void testInsertarHijoDerecho(){
         ArbolBin arb = new ArbolBin();
         arb.insertar(1,null,'a');
         boolean ev = arb.insertar(3, 1, 'D');
@@ -38,7 +38,7 @@ public class ArbolBinarioTestEstudiante {
         
     }
     @Test    
-    public void insertarArbolOcupado(){
+    public void testInsertarArbolOcupado(){
         ArbolBin arb = new ArbolBin();
         arb.insertar(1,null,'a'); //Raiz
         boolean ev = arb.insertar(2, 1, 'I');   
@@ -55,7 +55,7 @@ public class ArbolBinarioTestEstudiante {
         return arb;
     }
     @Test
-    public void recorridoPreOrden(){
+    public void testRecorridoPreOrden(){
         //Verifica que este bien el recorrido PreOrden
         ArbolBin arb = insertarAux();
         Lista l = arb.listarPreorden(); //[1,2,3]
@@ -65,7 +65,7 @@ public class ArbolBinarioTestEstudiante {
     }
    
     @Test
-    public void recorridoInOrden(){
+    public void testRecorridoInOrden(){
         //Verifica que este bien el recorrido InOrden
         ArbolBin arb = insertarAux();
         Lista l = arb.listarInorden(); //[2,1,3]
@@ -74,7 +74,7 @@ public class ArbolBinarioTestEstudiante {
     }
     
     @Test
-    public void recorridoPosOrden(){
+    public void testRecorridoPosOrden(){
         //Verifica que este bien el recorrido PosOrden
         ArbolBin arb = insertarAux();
         Lista l = arb.listarPosorden(); //[2,3,1]
@@ -83,7 +83,7 @@ public class ArbolBinarioTestEstudiante {
     }
 
     @Test
-    public void recorridoPorNiveles(){
+    public void testRecorridoPorNiveles(){
         //Verifica que este bien el recorrido PorNiveles
         ArbolBin arb = insertarAux();
         Cola c = arb.listarPorNiveles(); //[1,2,3]
