@@ -57,7 +57,6 @@ public class ArbolBin {
 
     private NodoArbol obtenerNodoPosicion(NodoArbol n, int posBusc, int[] posActual){
         NodoArbol res = null;
-
         if (n != null) {
             //Incrementa la pos actual si hay nodo en n(nodo actual)
             posActual[0] = posActual[0] +1;
