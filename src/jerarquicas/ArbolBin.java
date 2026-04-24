@@ -1,5 +1,5 @@
 package jerarquicas;
-import lineales.dinamicas.Lista;
+import lineales.dinamicas.*;
 public class ArbolBin {
     private NodoArbol raiz;
 
@@ -95,9 +95,29 @@ public class ArbolBin {
     }
     private void listarPosordenAux(NodoArbol nodo, Lista lis){
         if (nodo != null) {
-            listarInordenAux(nodo.getIzquierdo(), lis);
-            listarInordenAux(nodo.getDerecho(), lis);
+            listarPosordenAux(nodo.getIzquierdo(), lis);
+            listarPosordenAux(nodo.getDerecho(), lis);
             lis.insertar(nodo.getElem(), lis.longitud()+1);
         }
+    }
+
+    public Cola listarPorNiveles(){
+        Cola c = new Cola();                                            //Cola a retornar
+        if (this.raiz != null) {                //mientras no este vacio el arbol            
+            Cola aux = new Cola();              //creo una auxiliar para el recorrido                                           
+            aux.poner(this.raiz);               //le coloco la raiz del arbol
+            while (!aux.esVacia()) {            //hasta que no recorra todo el arbol no corta
+                NodoArbol nodoActual = (NodoArbol) aux.obtenerFrente();       //creo un nodo arbol que sera
+                c.poner(nodoActual.getElem());                      //coloco el elemento del nodo actual en la cola a retornar           
+                if (nodoActual.getIzquierdo() != null) {      //si el nodo actual tiene hijo por izquierda lo coloco en la cola auxiliar
+                    aux.poner(nodoActual.getIzquierdo());     //
+                }
+                if (nodoActual.getDerecho() != null) {      //si el nodo actual tiene hijo por derecha lo coloco en la cola auxiliar    
+                    aux.poner(nodoActual.getDerecho());
+                }
+                aux.sacar();        //saco el nodo actual para seguir con el siguiente
+            }
+        }
+        return c;
     }
 }

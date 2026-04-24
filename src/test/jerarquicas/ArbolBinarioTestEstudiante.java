@@ -1,4 +1,5 @@
 package test.jerarquicas;
+import lineales.dinamicas.Cola;
 import lineales.dinamicas.Lista;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -101,4 +102,12 @@ public class ArbolBinarioTestEstudiante {
 
     }
 
+    @Test
+    public void recorridoPorNiveles(){
+        //Verifica que este bien el recorrido PorNiveles
+        ArbolBin arb = insertarAux();
+        Cola c = arb.listarPorNiveles(); //[1,2,3]
+        Lista l2 = cargarListaPre();
+        assertEquals(c.toString(), l2.toString());
+    }
 }
