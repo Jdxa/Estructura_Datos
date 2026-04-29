@@ -6,6 +6,7 @@ public class testCadenas {
 
 
     public Cola generar(Cola c1){
+        //Orden O(n^2) recorro la cola por bloques y por cada dato del nodo apilo en una pila e inserto en una lista
         Cola res = new Cola();   //Cola resultante
         Lista l= new Lista(); //Lista auxiliar que guardara los caracteres ordenadso
         Pila p = new Pila(); //Pila auxiliar que guardara los caracteres invertidos
@@ -80,16 +81,17 @@ public class testCadenas {
     }
 
     public boolean verificarBalanceo(Cola q){ //q va a ser una expresion matematica
+        //Orden O(n)
         boolean balanceo = true; //true si esta balanceada; false si no lo está
         Pila p = new Pila();
         Cola aux = new Cola(); //para volver a acomodar la cola q
 
         while (balanceo && !q.esVacia()) {
-            char c = (char) q.obtenerFrente();
-            q.sacar();
+            char c = (char) q.obtenerFrente();  //extraigo cada caracter del parametro
+            q.sacar();                          //para moverme al siguiente
             aux.poner(c); //para no perder la cola
 
-            if (c == '{' || c== '[' || c== '('){
+            if (c == '{' || c== '[' || c== '('){    //si es una apertura la apilo
                 p.apilar(c); //la apilo en una pila auxiliar para verificar despues
             }else if(c == '}' || c== ']' || c== ')' ){
                if (p.esVacia()) {
@@ -97,7 +99,7 @@ public class testCadenas {
                     balanceo= false;
                }else{
                     char tope = (char) p.obtenerTope(); //obtengo el tope cargado en la pila
-                    //comparo aberturas y cerraduras
+                    //si el tope que es una apertura es igual a c que deberia su cerradura entonces desapila, sino está desbalanceada
                     if ((c == ')' && tope == '(') ||(c == ']' && tope == '[') ||
                     (c == '}' && tope == '{')) {
                         p.desapilar(); //si concuerdan desapilo
@@ -110,7 +112,7 @@ public class testCadenas {
                 
             }
         }
-        //restauro la cola q a su estado original
+        //restauro la cola q a su estado original para no perderla
         while (!aux.esVacia()) {
             q.poner(aux.obtenerFrente());
             aux.sacar();
