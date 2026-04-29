@@ -55,7 +55,49 @@ public class ArbolBin {
         return res;
     }
 
-
+    private NodoArbol obtenerNodoPosicion(NodoArbol n, int posBusc, int[] posActual){
+        NodoArbol res = null;
+        if (n != null) {
+            //Incrementa la pos actual si hay nodo en n(nodo actual)
+            posActual[0] = posActual[0] +1;
+            if (posBusc == posActual[0]) {
+                //si llego a la posBusc retorna el nodo en esa pos
+                res = n;
+            }else{
+                //visita por izquierda
+                res = obtenerNodoPosicion(n.getIzquierdo(), posBusc, posActual);
+                if (res == null) {
+                    //si ya visito toda la izquierda va por la derecha del padre
+                    res = obtenerNodoPosicion(n.getDerecho(), posBusc, posActual);
+                }
+            }
+        }
+        return res;
+    }
+    public boolean insertarPorPosicion(Object nuevo, int posPadre, char posHijo){
+        boolean exito = false;
+        NodoArbol nNodo = new NodoArbol(nuevo, null, null);
+        //solo inserta si existe un nodo en PosPadre
+        if (this.raiz != null) {
+            //arbol no vacio
+            int[] posActual = {0};
+            NodoArbol nPadre = obtenerNodoPosicion(this.raiz, posPadre, posActual);
+            if (nPadre != null) {
+                //lo encontro
+                if (posHijo == 'I' && nPadre.getIzquierdo() == null) {
+                    // si quiero insertar en I y no esta ocupado
+                    nPadre.setIzquierdo(nNodo);
+                    exito = true;
+                }else if (posHijo == 'D' && nPadre.getDerecho() == null) {
+                    // si quiero insertar por D y no esta ocupado
+                    nPadre.setDerecho(nNodo);
+                    exito = true;
+                }
+            }
+        }
+        return exito;
+    }
+        
 
     public Lista listarPreorden(){
         Lista lis = new Lista();
