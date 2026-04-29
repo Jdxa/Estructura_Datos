@@ -162,4 +162,21 @@ public class ArbolBin {
         }
         return c;
     }
+
+    private int nivelaux(NodoArbol nodo, Object elemento, int nivel){
+        int n=-1;
+        if (nodo!= null) {
+            if (nodo.getElem().equals(elemento)) {
+                n= nivel;
+            }else{
+                //busco x izquierda
+                n = nivelaux(nodo.getIzquierdo(), elemento, nivel+1);
+                //si no encontre busca x derecha
+                if (n== -1) {
+                    n = nivelaux(nodo.getDerecho(), elemento, nivel+1);
+                }
+            }
+        }
+        return n;
+    }
 }
