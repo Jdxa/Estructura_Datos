@@ -179,4 +179,8 @@ public class ArbolBin {
         }
         return n;
     }
+    public int nivel(Object elemento){
+        int n = nivelaux(this.raiz, elemento, 0);
+        return n;
+    }
 }
