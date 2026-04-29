@@ -42,8 +42,8 @@ public class Lista {
                 //caso insertar en medio
                  Nodo temp = new Nodo(null, null);      //nodo auxiliar
                 for(int i = 1; i < pos; i++){                       //itero hasta que llegue a pos-1
-                    temp.setEnlace(nodoActual);                     // enlazo el actual a temp
-                    nodoActual = nodoActual.getEnlace();            
+                    temp.setEnlace(nodoActual);                     // enlazo el actual (pos-1) a temp
+                    nodoActual = nodoActual.getEnlace();            //muevo el actual a pos para luego enlazarlo al nuevo nodo
                    
                 }
 
@@ -76,16 +76,13 @@ public class Lista {
                 exito = true;
             }else{
                 //caso comun, posiciones entre medias 
-                for(int i = 1; i < pos-1; i++){
-                         
+                for(int i = 1; i < pos-1; i++){ 
                     nodoActual = nodoActual.getEnlace();    //itero hasta pos-1
-                    
                 }
-                      
                 Nodo temp=nodoActual.getEnlace().getEnlace();    //guardo el nodo pos+1  
                 nodoActual.setEnlace(temp);                     //lo enlazo con actual que es pos-1, 
                                                                 // eliminando el del medio que es pos
-                
+
                 exito = true;
             }
         }
@@ -96,7 +93,7 @@ public class Lista {
         this.cabecera= null;        //poner null la cabecera pone null toda la lista
     }
 //////////////////////////////////////////////////////////////
-    public Object recuperar(int pos){
+    public Object recuperar(int pos){    
         Object res = new Object();      //copia a retornar 
         Nodo actual = this.cabecera;    //nodo de recorrido
        for(int i= 1; i < pos;i++){
@@ -125,7 +122,7 @@ public class Lista {
 /////////////////////////////////////////////////////////////////
     public boolean esVacia(){
         boolean exito= false;
-        if (this.longitud() == 0) {
+        if (this.cabecera == null){       //si la cabecera es null la lista esta vacia
             exito = true;
         }
         return exito;
@@ -168,4 +165,49 @@ public class Lista {
         }
         return clon;
     }
+
+    public Lista obtenerMultiplos(int num) {
+    Lista clon = new Lista();
+    Nodo actual = this.cabecera;
+    Nodo anterior = null;
+    int pos = 1;
+
+    while (actual != null) {
+        if (pos % num == 0) {
+            //Nodo a cargar
+            Nodo nuevo = new Nodo(actual.getDato(), null);
+
+            if (clon.cabecera == null) { //Si no está cargado el clon
+                clon.cabecera = nuevo;
+            } else { 
+                anterior.setEnlace(nuevo); //
+            }
+
+            anterior = nuevo;
+        }
+
+        actual = actual.getEnlace();
+        pos++;
+    }
+
+    return clon;
+    }
+
+   public void eliminarApariciones(Object dato) {
+
+    // Eliminar desde la cabecera mientras coincida
+    while (this.cabecera != null && this.cabecera.getDato().equals(dato)) { //si la cabecera no es nula y el dato es igual al parametro borro el nodo actual
+        this.cabecera = this.cabecera.getEnlace();
+    }
+
+    Nodo actual = this.cabecera;
+    //Borro pasada la cabecera (si cabecera no es igual al dato)
+    while (actual != null && actual.getEnlace() != null) { //mientras este nodo y su enlace no sean nulos
+        if (actual.getEnlace().getDato().equals(dato)) {        //al enlace del nodo actual comparo su dato con el parametro
+            actual.setEnlace(actual.getEnlace().getEnlace());       //si es verdadero, enlazo actual con el enlace del enlace es decir, borro el que tiene el mismo dato que parametro
+        } else {
+            actual = actual.getEnlace();  //si no es el caso, itero
+        }
+    }
+}
 }

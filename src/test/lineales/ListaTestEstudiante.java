@@ -105,4 +105,27 @@ public class ListaTestEstudiante {
         assertTrue(copia.esVacia());
         assertEquals("[]", copia.toString());
     }
+    @Test
+    public void testobtenerMultiplos(){
+        Lista lista= new Lista();
+        lista.insertar("A", 1);
+        lista.insertar("B", 2);
+        lista.insertar("C", 3);
+        lista.insertar("D", 4); //
+        Lista copia = new Lista();
+        copia = lista.obtenerMultiplos(2); //[B,D]
+        assertEquals(lista.toString(),"[A,B,C,D]");
+        assertEquals(copia.toString(),"[B,D]");
+    }
+    @Test
+    public void testeliminarApariciones(){
+        Lista lista = new Lista();
+        lista.insertar("A", 1);
+        lista.insertar("B", 2);
+        lista.insertar("A", 3);
+        lista.insertar("A", 4);
+        lista.insertar("C", 5); //
+        lista.eliminarApariciones("A");
+        assertEquals(lista.toString(),"[B,C]");
+    }
 }
