@@ -78,4 +78,75 @@ public class testCadenas {
         Cola clone = generar(c1); // [A,B,B,A,A,B#,C,C,C,#,D,E,F,F,E,D,D,E,F]
         assertEquals(clone.toString(),"[A,B,B,A,A,B,#,C,C,C,#,D,E,F,F,E,D,D,E,F]");
     }
+
+    public boolean verificarBalanceo(Cola q){ //q va a ser una expresion matematica
+        boolean balanceo = true; //true si esta balanceada; false si no lo está
+        Pila p = new Pila();
+        Cola aux = new Cola(); //para volver a acomodar la cola q
+
+        while (balanceo && !q.esVacia()) {
+            char c = (char) q.obtenerFrente();
+            q.sacar();
+            aux.poner(c); //para no perder la cola
+
+            if (c == '{' || c== '[' || c== '('){
+                p.apilar(c); //la apilo en una pila auxiliar para verificar despues
+            }else if(c == '}' || c== ']' || c== ')' ){
+               if (p.esVacia()) {
+                   //si es una cerradura y no apile nada en p, no está balanceada
+                    balanceo= false;
+               }else{
+                    char tope = (char) p.obtenerTope(); //obtengo el tope cargado en la pila
+                    //comparo aberturas y cerraduras
+                    if ((c == ')' && tope == '(') ||(c == ']' && tope == '[') ||
+                    (c == '}' && tope == '{')) {
+                        p.desapilar(); //si concuerdan desapilo
+                        
+                    }else{
+                        balanceo =false; //si no comprueba ninguna comparacion esta desbalanceado
+                    }   
+
+               }
+                
+            }
+        }
+        //restauro la cola q a su estado original
+        while (!aux.esVacia()) {
+            q.poner(aux.obtenerFrente());
+            aux.sacar();
+        }
+        return balanceo;
+    }
+
+    @Test
+    public void testVerificarBalanceo(){
+        Cola q= new Cola();
+        q.poner('[');
+        q.poner('(');
+        q.poner('2');
+        q.poner('+');
+        q.poner('2');
+        q.poner(')');
+        q.poner('*');
+        q.poner('2');
+        q.poner(']');   //[(2+2)*2]
+        boolean v = verificarBalanceo(q);
+        assertTrue(v);
+        assertEquals(q.toString(), "[[,(,2,+,2,),*,2,]]");
+    }
+    @Test
+    public void testVerificarDesbalanceo(){
+        Cola q= new Cola();
+        q.poner('[');
+        q.poner('(');
+        q.poner('2');
+        q.poner('+');
+        q.poner('2');
+        q.poner('*');
+        q.poner('2');
+        q.poner(']');   //[(2+2*2]  me faltaria un )
+        boolean v = verificarBalanceo(q);
+        assertFalse(v);
+        assertEquals(q.toString(), "[[,(,2,+,2,*,2,]]");
+    }
 }

@@ -208,6 +208,6 @@ public class Lista {
         } else {
             actual = actual.getEnlace();  //si no es el caso, itero
         }
+        }
     }
-}
 }
