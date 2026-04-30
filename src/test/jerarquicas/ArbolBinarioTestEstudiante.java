@@ -121,4 +121,60 @@ public class ArbolBinarioTestEstudiante {
         Lista l = arb.frontera();
         assertEquals(l.toString(), "[4,5,6,7]");
     }
+    @Test
+    public void testAlturaIzq(){
+        ArbolBin arb = insertarAux();
+        arb.insertar(4, 2, 'I');
+        arb.insertar(5, 2, 'D'); 
+        assertEquals(arb.altura(), 2);
+    }
+
+    @Test
+    public void testAlturaDer(){
+        ArbolBin arb = insertarAux();
+        arb.insertar(4, 3, 'I');
+        arb.insertar(5, 3, 'D'); 
+        assertEquals(arb.altura(), 2);
+
+    }
+
+    @Test
+    public void testAlturaRaiz(){
+        ArbolBin arb = new ArbolBin();
+        arb.insertar(1,null , 'I');
+        assertEquals(arb.altura(), 0);
+
+    }
+    @Test
+    public void testAlturaEmpty(){
+        ArbolBin arb = new ArbolBin();
+        assertEquals(arb.altura(), -1);
+
+    }
+    @Test
+    public void testClone(){
+        ArbolBin arb = insertarAux();
+        ArbolBin clon = arb.clone();
+        Lista l1 = arb.listarPreorden();
+        
+        Lista l2 = clon.listarPreorden();
+        assertEquals(l1.toString(), l2.toString());
+    }
+    @Test
+    public void tesCloneInvertido(){
+        ArbolBin arb = insertarAux();
+        arb.insertar(4, 2, 'I');
+        arb.insertar(5, 2, 'D'); 
+        arb.insertar(6, 3, 'I');
+        arb.insertar(7, 3, 'D'); //[1,2,3,4,5,6,7]
+        ArbolBin clon = arb.clonarInvertido(); // [1,3,7,6,2,5,4]
+        Lista l1 = arb.listarInorden();
+        Lista l2 = clon.listarInorden();
+        assertNotEquals(l1.toString(),l2.toString());
+
+        assertEquals(l2.toString(),"[7,3,6,1,5,2,4]" );
+
+
+    
+    }
 }

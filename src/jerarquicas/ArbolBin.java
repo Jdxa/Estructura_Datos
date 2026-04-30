@@ -1,6 +1,10 @@
 package jerarquicas;
 import lineales.dinamicas.*;
 public class ArbolBin {
+    //*Autores
+    // Aguilera Joaquin
+    // el fixy */
+    
     private NodoArbol raiz;
 
     public ArbolBin(){
@@ -184,6 +188,59 @@ public class ArbolBin {
         return n;
     }
 
+    public int altura(){
+        int altura= -1;
+        if (this.raiz != null) {
+            altura = alturaAux(this.raiz, 0);
+        }
+        return altura;
+    }
+
+    private int alturaAux(NodoArbol nodo, int i){
+        int res= 0;
+        int izq, der;
+        if (nodo != null) {
+            if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) {
+                res = i;
+            }else{
+                izq = alturaAux(nodo.getIzquierdo(), i+1);
+                der = alturaAux(nodo.getDerecho(), i+1);
+                if (izq < der) {
+                    res=der;
+                }else{
+                    res=izq;
+                }
+            }
+        }
+        return res;
+    }
+    public ArbolBin clone(){
+            ArbolBin clone = new ArbolBin();
+            if (this.raiz != null) {
+                NodoArbol nuevo = new NodoArbol(this.raiz.getElem(), null, null);
+                clone.raiz = nuevo;
+                cloneaux(this.raiz, clone.raiz);
+            }
+            return clone;
+    }
+
+    private void cloneaux(NodoArbol actual, NodoArbol cloneRaiz){
+        if (actual != null) {
+            //Por izquierda
+            if (actual.getIzquierdo()!= null) {    
+            NodoArbol nuevo = new NodoArbol(actual.getIzquierdo().getElem(), null, null);
+            cloneRaiz.setIzquierdo(nuevo);
+            cloneaux(actual.getIzquierdo(), cloneRaiz.getIzquierdo());
+            }
+            //Por derecha
+            if (actual.getDerecho()!= null) {
+            NodoArbol nuevo2 = new NodoArbol(actual.getDerecho().getElem(), null, null);
+            cloneRaiz.setDerecho(nuevo2);
+            cloneaux(actual.getDerecho(), cloneRaiz.getDerecho());
+            }
+        }
+    }
+//metodos propios
     private boolean verificarAux(NodoArbol nodo, Lista patron, int i){
         boolean aux= false;
         if (nodo!= null) {
@@ -234,11 +291,37 @@ public class ArbolBin {
                 //es hoja
                 l.insertar(nodo.getElem(),l.longitud()+1);
             }else{
+                //voy por la izquierda y se cargan si son hojas
                 cargarLista(nodo.getIzquierdo(), l);
+                //una vez revise la izquierda voy por derecha
                 cargarLista(nodo.getDerecho(), l);
             }
-            
-
         }
+    }
+    public ArbolBin clonarInvertido(){
+        ArbolBin clone= new ArbolBin();
+        if (this.raiz  != null) {
+            NodoArbol nuevo = new NodoArbol(this.raiz.getElem(), null,null);
+            clone.raiz = nuevo;
+            clonarinvertidoaux(this.raiz, clone.raiz);
+        }
+        return clone;
+    }
+    private void clonarinvertidoaux(NodoArbol actual, NodoArbol cloneRaiz){
+        if (actual != null) {
+            //Por izquierda
+            if (actual.getIzquierdo()!= null) {    
+            NodoArbol nuevo = new NodoArbol(actual.getIzquierdo().getElem(), null, null);
+            cloneRaiz.setDerecho(nuevo);
+            clonarinvertidoaux(actual.getIzquierdo(), cloneRaiz.getDerecho());
+            }
+            //Por derecha
+            if (actual.getDerecho()!= null) {
+            NodoArbol nuevo2 = new NodoArbol(actual.getDerecho().getElem(), null, null);
+            cloneRaiz.setIzquierdo(nuevo2);
+            clonarinvertidoaux(actual.getDerecho(), cloneRaiz.getIzquierdo());
+            }
+        }
+                
     }
 }

@@ -20,7 +20,7 @@ public class Pila {
     
     public boolean apilar(Object elem){
         boolean exito;
-        if(this.tope < TAMANIO){
+        if(this.tope < TAMANIO-1){
             this.tope++;
             this.arreglo[this.tope] = elem;
             exito =true;
