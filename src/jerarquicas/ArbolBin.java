@@ -183,4 +183,62 @@ public class ArbolBin {
         int n = nivelaux(this.raiz, elemento, 0);
         return n;
     }
+
+    private boolean verificarAux(NodoArbol nodo, Lista patron, int i){
+        boolean aux= false;
+        if (nodo!= null) {
+            //caso de corte: ultimo elemento de la lista y nodo hoja
+            if (i == patron.longitud() && nodo.getIzquierdo()==null && nodo.getDerecho()==null && nodo.getElem().equals(patron.recuperar(i))) {
+                aux = true;
+            }else if (i < patron.longitud()) {
+                //caso recursivo: evaluo nodos
+                if (nodo.getElem().equals(patron.recuperar(i))) {
+                    //por izquierda
+                    if (verificarAux(nodo.getIzquierdo(), patron, i+1)) {
+                        aux=true;
+                    }else{
+                        //por derecha
+                        aux = verificarAux(nodo.getDerecho(), patron, i+1);
+                    }
+                }
+            }
+        }
+        return aux;
+    }
+
+    public boolean verificarPatron(Lista lista){
+        boolean res = false;
+        if (lista.esVacia() && this.raiz ==  null) {
+            res = true;
+        }
+        if (lista.esVacia() && this.raiz != null) {
+            res= false;
+        }
+        if (!lista.esVacia() && this.raiz == null) {
+            res= false;
+        }
+        if (!lista.esVacia() && this.raiz != null) {
+            res = verificarAux(raiz, lista, 1);
+        }
+        return res;
+    }
+
+    public Lista frontera(){
+        Lista l = new Lista();
+        cargarLista(this.raiz, l);
+        return l;
+    }
+    private void cargarLista(NodoArbol nodo, Lista l){
+        if (nodo != null) {
+            if(nodo.getIzquierdo() == null && nodo.getDerecho() == null){
+                //es hoja
+                l.insertar(nodo.getElem(),l.longitud()+1);
+            }else{
+                cargarLista(nodo.getIzquierdo(), l);
+                cargarLista(nodo.getDerecho(), l);
+            }
+            
+
+        }
+    }
 }

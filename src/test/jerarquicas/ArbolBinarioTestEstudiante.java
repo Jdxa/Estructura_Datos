@@ -96,4 +96,29 @@ public class ArbolBinarioTestEstudiante {
         assertTrue(ev);
         assertEquals(arb.listarPreorden().toString(),"[1,2,4,3]");
     }
+    @Test
+    public void testVerificarPatron(){
+        ArbolBin arb = insertarAux();
+        arb.insertar(4, 2, 'I');
+        arb.insertar(5, 2, 'D'); 
+        arb.insertar(6, 3, 'I');
+        arb.insertar(7, 3, 'D'); //[1,2,3,4,5,6,7]
+        Lista l = new Lista();
+        l.insertar(1, 1);
+        l.insertar(3, 2);
+        l.insertar(7, 3);
+
+        assertEquals(arb.verificarPatron(l), true);
+
+    }
+    @Test
+    public void testverificarFrontera(){
+        ArbolBin arb = insertarAux();
+        arb.insertar(4, 2, 'I');
+        arb.insertar(5, 2, 'D'); 
+        arb.insertar(6, 3, 'I');
+        arb.insertar(7, 3, 'D'); //[1,2,3,4,5,6,7]
+        Lista l = arb.frontera();
+        assertEquals(l.toString(), "[4,5,6,7]");
+    }
 }
