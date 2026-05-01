@@ -7,11 +7,10 @@ import org.junit.Test;
 import lineales.dinamicas.*;
 
 public class ListaTestEstudiante {
-    
-    
+
     @Test
     public void testCreateEmptyList() {
-            // Verifica que al crearla esté vacía y su toString sea []
+        // Verifica que al crearla esté vacía y su toString sea []
         Lista lista = new Lista();
         assertTrue(lista.esVacia());
         assertEquals(0, lista.longitud());
@@ -32,11 +31,11 @@ public class ListaTestEstudiante {
         Lista lista = new Lista();
         lista.insertar(10, 1); // [10]
         lista.insertar(30, 2); // [10,30]
-        
+
         // Insertar en el medio (pos 2)
-        assertTrue(lista.insertar(20, 2)); 
+        assertTrue(lista.insertar(20, 2));
         assertEquals("[10,20,30]", lista.toString());
-        
+
         // Insertar al principio
         lista.insertar(5, 1);
         assertEquals("[5,10,20,30]", lista.toString());
@@ -55,7 +54,7 @@ public class ListaTestEstudiante {
         Lista lista = new Lista();
         assertEquals(lista.esVacia(), true);
         lista.insertar("A", 1);
-        
+
         assertTrue(lista.eliminar(1));
         // assertEquals(lista.esVacia(),true);
         assertEquals("[]", lista.toString());
@@ -67,7 +66,7 @@ public class ListaTestEstudiante {
         lista.insertar(1, 1);
         lista.insertar(2, 2);
         lista.insertar(3, 3); // [1,2,3]
-        
+
         // Eliminar el del medio
         assertTrue(lista.eliminar(2));
         assertEquals("[1,3]", lista.toString());
@@ -77,7 +76,7 @@ public class ListaTestEstudiante {
     @Test
     public void testRecoverEmptyList() {
         // Siguiendo el patrón de 'unqueue' pero para recuperar
-        // Como recuperar tiene precondición de posición válida, 
+        // Como recuperar tiene precondición de posición válida,
         // aquí testeamos que la lista se mantenga igual si intentamos algo raro
         Lista lista = new Lista();
         assertEquals(0, lista.longitud());
@@ -88,11 +87,11 @@ public class ListaTestEstudiante {
         Lista lista = new Lista();
         lista.insertar(10, 1);
         lista.insertar(20, 2);
-        
+
         Lista copia = lista.clone();
-        
+
         assertEquals(lista.toString(), copia.toString(), "El contenido debe ser idéntico");
-        
+
         // Verificamos independencia: modificamos original, la copia no debe cambiar
         lista.insertar(30, 3);
         assertNotEquals(lista.toString(), copia.toString());
@@ -105,20 +104,22 @@ public class ListaTestEstudiante {
         assertTrue(copia.esVacia());
         assertEquals("[]", copia.toString());
     }
+
     @Test
-    public void testobtenerMultiplos(){
-        Lista lista= new Lista();
+    public void testobtenerMultiplos() {
+        Lista lista = new Lista();
         lista.insertar("A", 1);
         lista.insertar("B", 2);
         lista.insertar("C", 3);
         lista.insertar("D", 4); //
         Lista copia = new Lista();
-        copia = lista.obtenerMultiplos(2); //[B,D]
-        assertEquals(lista.toString(),"[A,B,C,D]");
-        assertEquals(copia.toString(),"[B,D]");
+        copia = lista.obtenerMultiplos(2); // [B,D]
+        assertEquals(lista.toString(), "[A,B,C,D]");
+        assertEquals(copia.toString(), "[B,D]");
     }
+
     @Test
-    public void testeliminarApariciones(){
+    public void testeliminarApariciones() {
         Lista lista = new Lista();
         lista.insertar("A", 1);
         lista.insertar("B", 2);
@@ -126,23 +127,45 @@ public class ListaTestEstudiante {
         lista.insertar("A", 4);
         lista.insertar("C", 5); //
         lista.eliminarApariciones("A");
-        assertEquals(lista.toString(),"[B,C]");
+        assertEquals(lista.toString(), "[B,C]");
     }
+
     @Test
-    public void testAgregarElem(){
+    public void testAgregarElemCadaDos() {
         Lista lista = new Lista();
-        lista.insertar(1, 1);
-        lista.insertar(2, 2);
-        lista.insertar(3, 3);
-        lista.insertar(4, 4);
-        lista.insertar(5, 5);
-        lista.insertar(6, 6);
-        // lista.insertar(7, 7);
-        
-        
+
+        // armar lista [1,2,3,4,5,6,7]
+        for (int i = 7; i >= 1; i--) {
+            lista.insertar(i, 1); // inserta al inicio
+        }
+
+        // ejecutar método
+        lista.agregarElem(0, 2);
+
+        // verificar resultado esperado
+        assertEquals("[0,1,2,0,3,4,0,5,6,0,7]", lista.toString());
+    }
+
+    @Test
+    public void testListaVacia() {
+        Lista lista = new Lista();
 
         lista.agregarElem(0, 2);
 
-        assertEquals(lista.toString(),"[0,1,2,0,3,4,0,5,6,0]");
+        assertEquals("[0]", lista.toString());
     }
+
+    @Test
+    public void testCadaUno() {
+        Lista lista = new Lista();
+
+        for (int i = 3; i >= 1; i--) {
+            lista.insertar(i, 1);
+        }
+
+        lista.agregarElem(0, 1);
+
+        assertEquals("[0,1,0,2,0,3,0]", lista.toString());
+    }
+
 }
