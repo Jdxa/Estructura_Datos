@@ -210,4 +210,53 @@ public class Lista {
         }
         }
     }
+
+    // public void agregarElem(Object nuevo, int x){
+    //     if (this.cabecera != null) {
+    //         Nodo nCabecera= new Nodo(nuevo,null);
+    //         nCabecera.setEnlace(nCabecera);
+    //         this.cabecera = nCabecera;
+
+    //         Nodo actual = this.cabecera;
+            
+    //         int pos=1;
+    //         while (actual.getEnlace()!= null) {
+    //             if (pos % (x+1)== 0) {
+    //                 Nodo siguiente = actual.getEnlace();
+    //                 Nodo nuevoN = new Nodo(nuevo, siguiente);
+    //                 actual.setEnlace(nuevoN);
+    //             }
+    //             pos++;
+    //             actual = actual.getEnlace();
+    //         }
+    //         if (actual.getEnlace()==null) {
+    //             if (pos % (x+1)== 0) {
+    //                 Nodo aux = new Nodo(nuevo, null);
+    //                 actual.setEnlace(aux);
+    //                 pos++;
+    //             }
+    //         }
+    //     }
+    // }
+public void agregarElem(Object nuevo, int x) {
+    // insertar en la primera posición
+    this.cabecera = new Nodo(nuevo, this.cabecera);
+
+    Nodo actual = this.cabecera.getEnlace(); // primer nodo original
+    int contador = 1;
+
+    while (actual != null) {
+        if (contador % x == 0) {
+            Nodo nuevoNodo = new Nodo(nuevo, actual.getEnlace());
+            actual.setEnlace(nuevoNodo);
+
+            actual = nuevoNodo.getEnlace(); // avanzo al siguiente original
+            contador++; // cuento el nodo original que viene
+        } else {
+            actual = actual.getEnlace();
+            contador++;
+        }
+    }
+}
+
 }
