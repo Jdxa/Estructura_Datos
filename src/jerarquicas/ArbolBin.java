@@ -1,5 +1,7 @@
 package jerarquicas;
 
+import static org.junit.Assert.fail;
+
 import lineales.dinamicas.*;
 
 public class ArbolBin {
@@ -341,5 +343,30 @@ public class ArbolBin {
             }
         }
 
+    }
+    public boolean equals(ArbolBin otro){
+        boolean res = equalsaux(this.raiz, otro.raiz);
+        return res;
+    }
+    private boolean equalsaux(NodoArbol actual, NodoArbol otro){
+        boolean res= false;
+        if (actual == null && otro == null){
+            //caso base1: comprobo todo o ambos son vacios
+            res =true;
+        }else if (actual== null || otro == null) {
+            //caso base2: un nodo es nulo y el otro no
+            res= false;
+        }else{
+            //caso recursivo: comprueba cada nodo por izquierda y por dercha
+
+            if (actual.getElem().equals(otro.getElem())) {
+                //elementos iguales, verifica x izquierda y derecha
+                res = equalsaux(actual.getIzquierdo(), otro.getIzquierdo()) && equalsaux(actual.getDerecho(), otro.getDerecho());
+            }else{
+                //son distintos es falso
+                res =false;
+            }
+        }
+        return res;
     }
 }
