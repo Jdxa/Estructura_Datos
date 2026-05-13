@@ -30,8 +30,9 @@ public class NodoGen {
     public void setHijoIzquierdo(NodoGen izq){
         this.hijoIzquierdo = izq;
     }
-    public void setElem(NodoGen hermDer){
+    public void setHermanoDerecho(NodoGen hermDer){
         this.hermanoDerecho = hermDer;
     }
+    
 
 }
