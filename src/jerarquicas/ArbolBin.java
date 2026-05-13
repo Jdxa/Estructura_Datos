@@ -1,6 +1,6 @@
 package jerarquicas;
 
-import static org.junit.Assert.fail;
+// import static org.junit.Assert.fail;
 
 import lineales.dinamicas.*;
 

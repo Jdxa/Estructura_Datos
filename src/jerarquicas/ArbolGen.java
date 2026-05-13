@@ -106,7 +106,32 @@ public class ArbolGen {
         }
         return res;
     }
+    //padre()
+    public Object padre(Object elemento){
+        Object res = null;
+        if (this.raiz!= null) {
+            //raiz no tiene padre
+            if (!this.raiz.getElem().equals(elemento)) {
+                res= padreAux(this.raiz, elemento);
+            }
+        }
+        return res;
+    }
+    
+    private Object padreAux(NodoGen nodo, Object elemento){
+        Object res = null;
+        NodoGen hijo = nodo.getHijoIzquierdo();
 
+        while (hijo != null && res == null) {
+            if (hijo.getElem().equals(elemento)) {
+                res = nodo.getElem();
+            }else{
+                res = padreAux(hijo, elemento);
+            }
+            hijo = hijo.getHermanoDerecho();
+        }
+        return res;
+    }
     public void vaciar(){
         this.raiz = null;
     }
