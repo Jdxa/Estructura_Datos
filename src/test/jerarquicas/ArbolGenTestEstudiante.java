@@ -1,6 +1,6 @@
 package test.jerarquicas;
 
-import lineales.dinamicas.Cola;
+// import lineales.dinamicas.Cola;
 import lineales.dinamicas.Lista;
 import static org.junit.Assert.*;
 import org.junit.Test;

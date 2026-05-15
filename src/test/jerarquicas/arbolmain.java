@@ -4,10 +4,15 @@ import jerarquicas.ArbolGen;
 import lineales.dinamicas.*;
 public class arbolmain {
     public static void main(String[] args) {
+
         ArbolGen arb = cargarArb();
+
         String s = arb.toString();
+
         Lista l = arb.listarPreorden();
+        System.out.println("lista: ");
         System.out.println(l.toString());
+
         System.out.println(s);
 
     }
