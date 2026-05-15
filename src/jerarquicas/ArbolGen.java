@@ -14,12 +14,12 @@ public class ArbolGen {
     // metodos propios
     public boolean insertar(Object dato, Object padre) {
         boolean exito = false;
+        NodoGen nuevo = new NodoGen(dato, null, null);
         if (this.raiz != null) {
             NodoGen nodoPadre = buscarNodo(this.raiz, padre);
             // si encontro al padre puede insertarlo -> siempre es true
             if (nodoPadre != null) {
-                NodoGen nuevo = new NodoGen(dato, null, null);
-
+        
                 // si no tiene hijos el padre
                 if (nodoPadre.getHijoIzquierdo() == null) {
                     nodoPadre.setHijoIzquierdo(nuevo);
@@ -35,9 +35,13 @@ public class ArbolGen {
                 exito = true;
             }
 
+        }else{
+            this.raiz = nuevo;
+            exito = true;
         }
         return exito;
     }
+    
 
     private NodoGen buscarNodo(NodoGen nodo, Object padre) {
         // retorno el puntero del padre
@@ -56,6 +60,47 @@ public class ArbolGen {
 
         }
         return res;
+    }
+    public boolean insertarPorPosicion(Object elemento, int posPadre){
+        boolean exito = false;
+        if (this.raiz != null) {
+            int[] cont = {1};
+            // defino nodo a insertar, nodo padre obtenido por pos, y su hijo
+            NodoGen nuevo = new NodoGen(elemento, null, null);
+            NodoGen padre = buscarPos(this.raiz, posPadre, cont);
+            NodoGen hijopadre= padre.getHijoIzquierdo();
+            if (hijopadre == null) {
+                // si no tiene hijos
+                padre.setHijoIzquierdo(nuevo);
+            }else{
+                //si tieene hijos
+                while (hijopadre.getHermanoDerecho() != null) {
+                    // voy hasta el ultimo hermano
+                    hijopadre = hijopadre.getHermanoDerecho();
+                }
+                hijopadre.setHermanoDerecho(nuevo);
+            }
+            
+        }
+        return exito;
+    }
+    private NodoGen buscarPos(NodoGen nodo, int pos, int[] cont){
+        NodoGen padre= null;
+        boolean flag = false;
+        if (nodo != null && !flag ) {
+            if (pos == cont[0]) {
+                //comparo si encontre la pos
+                padre = nodo;
+                flag = true;
+            }
+            NodoGen hijo = nodo.getHijoIzquierdo();
+            while(hijo!= null){
+                buscarPos(hijo, pos, cont);
+                hijo = hijo.getHermanoDerecho();
+            }   
+        }
+        return padre;
+
     }
     //busca si el elemento esta dentro del arbol
     public boolean pertence(Object elemento){
