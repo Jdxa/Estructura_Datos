@@ -9,12 +9,22 @@ public class arbolmain {
 
         String s = arb.toString();
 
-        Lista l = arb.listarPreorden();
-        System.out.println("lista: ");
-        System.out.println(l.toString());
+        // Lista l = arb.listarPreorden();
+        // System.out.println("lista: ");
+        // System.out.println(l.toString());
+        // l = arb.listarInorden();
+        // System.out.println(l.toString());
 
         System.out.println(s);
-
+        // Lista ancestros = arb.ancestros("I");
+        // System.out.println(ancestros.toString());
+        // l = arb.listarPosorden();
+        // System.out.println(l.toString());
+        // l = arb.listarNiveles();
+        // System.out.println(l.toString());
+        ArbolGen arb2 = arb.clone();
+        System.out.println("clone");
+        System.out.println(arb2.toString());
     }
     public static ArbolGen cargarArb(){
         ArbolGen arb = new ArbolGen();

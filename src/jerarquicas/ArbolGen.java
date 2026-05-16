@@ -74,21 +74,22 @@ public class ArbolGen {
             NodoGen nuevo = new NodoGen(elemento, null, null);
             NodoGen padre = buscarPos(this.raiz, posPadre, cont);
             if (padre != null) {
-                //si el padre exite
-                NodoGen hijoPadre = padre.getHijoIzquierdo();   //le pregunto su hijo
+                // si el padre exite
+                NodoGen hijoPadre = padre.getHijoIzquierdo(); // le pregunto su hijo
 
                 if (hijoPadre == null) {
-                    //si no tiene hijos lo pongo como hijo al nuevo
+                    // si no tiene hijos lo pongo como hijo al nuevo
                     padre.setHijoIzquierdo(nuevo);
 
                 } else {
-                    //si tiene hijos voy hasta su ultimo hijo
-                    //alternativa para insertar a la derecha
+                    // si tiene hijos voy hasta su ultimo hijo
+                    // alternativa para insertar a la derecha
                     // while (hijoPadre.getHermanoDerecho() != null) {
-                    //     hijoPadre = hijoPadre.getHermanoDerecho();
+                    // hijoPadre = hijoPadre.getHermanoDerecho();
                     // }
                     // hijoPadre.setHermanoDerecho(nuevo);
-                    //alternativa mas eficiente, mueve todos los hermanos a la derecha, al ser todos hijos del padre moverlos no cambia la estructura
+                    // alternativa mas eficiente, mueve todos los hermanos a la derecha, al ser
+                    // todos hijos del padre moverlos no cambia la estructura
                     nuevo.setHermanoDerecho(hijoPadre);
                     padre.setHijoIzquierdo(nuevo);
                 }
@@ -148,6 +149,35 @@ public class ArbolGen {
         return res;
     }
 
+    public Lista ancestros(Object elemento) {
+        Lista l = new Lista();
+        if (this.raiz != null) {
+            ancestrosaux(this.raiz, elemento, l);
+        }
+        return l;
+    }
+
+    private boolean ancestrosaux(NodoGen nodo, Object elemento, Lista l) {
+        boolean encontrado = false;
+        if (nodo != null) {
+            if (nodo.getElem().equals(elemento)) {
+                encontrado = true;
+            } else {
+                NodoGen hijo = nodo.getHijoIzquierdo();
+                while (hijo != null && !encontrado) {
+                    encontrado = ancestrosaux(hijo, elemento, l);
+
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+            if (encontrado) {
+                // va insertando toda la cadena de ancestros
+                l.insertar(nodo.getElem(), 1);
+            }
+        }
+        return encontrado;
+    }
+
     public boolean esVacio() {
         boolean res = false;
         if (this.raiz == null) {
@@ -174,6 +204,31 @@ public class ArbolGen {
                 }
                 hijo = hijo.getHermanoDerecho();
             }
+        }
+        return res;
+    }
+
+    // metodo que devuelve el nivel en el arbol de un elemento
+    public int nivel(Object elemento) {
+        return nivelaux(elemento, this.raiz, 0);
+    }
+
+    private int nivelaux(Object elemento, NodoGen nodo, int nivel) {
+        int res = -1;
+        if (nodo != null) {
+            if (nodo.getElem().equals(elemento)) {
+                // encontre el elemento
+                res = nivel;
+            } else {
+                // recorro hijo izquierdo y sus hermanos hasta encontrar el elemento
+                NodoGen hijo = nodo.getHijoIzquierdo();
+                while (hijo != null && res == -1) {
+                    // res solo cambia al encontrar el elemento, sino se mantiene en -1
+                    res = nivelaux(elemento, hijo, nivel + 1);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+
         }
         return res;
     }
@@ -263,6 +318,81 @@ public class ArbolGen {
             }
 
         }
+    }
+
+    // lista pos posorden
+    public Lista listarPosorden() {
+        Lista l = new Lista();
+        if (this.raiz != null) {
+            listarPosordenaux(this.raiz, l);
+        }
+        return l;
+    }
+
+    private void listarPosordenaux(NodoGen nodo, Lista l) {
+
+        NodoGen hijo = nodo.getHijoIzquierdo();
+
+        while (hijo != null) {
+            listarPosordenaux(hijo, l);
+            hijo = hijo.getHermanoDerecho();
+        }
+
+        l.insertar(nodo.getElem(), l.longitud() + 1);
+        // h,c
+
+    }
+
+    public Lista listarNiveles() {
+
+        Lista l = new Lista();
+        // creo un tope de iteracion
+        int altura = alturaAux(this.raiz);
+
+        for (int i = 0; i <= altura; i++) {
+            listarNivelAux(this.raiz, i, l);
+        }
+
+        return l;
+    }
+
+    private void listarNivelAux(NodoGen nodo, int nivel, Lista l) {
+        // carga en la lista todos los nodos del nivel n
+        if (nodo != null) {
+            if (nivel == 0) {
+                l.insertar(nodo.getElem(), l.longitud() + 1);
+            } else {
+                NodoGen hijo = nodo.getHijoIzquierdo();
+                while (hijo != null) {
+                    listarNivelAux(hijo, nivel - 1, l);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+        }
+    }
+
+    public ArbolGen clone() {
+
+        ArbolGen nuevo = new ArbolGen();
+
+        if (this.raiz != null) {
+            nuevo.raiz = cloneAux(this.raiz);
+        }
+
+        return nuevo;
+    }
+
+    private NodoGen cloneAux(NodoGen nodo) {
+        NodoGen nuevoNodo = null;
+        if (nodo != null) {
+            nuevoNodo = new NodoGen(nodo.getElem(), null, null);
+            // copiar hijo izquierdo
+            nuevoNodo.setHijoIzquierdo(cloneAux(nodo.getHijoIzquierdo()));
+            // copiar hermano derecho
+            nuevoNodo.setHermanoDerecho(cloneAux(nodo.getHermanoDerecho()));
+        }
+
+        return nuevoNodo;
     }
 
     // ToString
