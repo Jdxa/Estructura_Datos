@@ -126,7 +126,7 @@ public class ArbolGen {
     }
 
     // busca si el elemento esta dentro del arbol
-    public boolean pertence(Object elemento) {
+    public boolean pertenece(Object elemento) {
         return perteneceAux(this.raiz, elemento);
     }
 
