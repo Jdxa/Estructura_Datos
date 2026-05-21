@@ -1,4 +1,4 @@
-package conjuntivistas;
+package conjuntistas;
 
 public class ArbolBB {
     
