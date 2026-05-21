@@ -11,5 +11,14 @@ public class NodoABB {
         this.derecho = der;
     }
 
-
+    public Object getElem(){
+        return this.elem;
+    }
+    public void setElem(){
+        
+    }
+// git pull
+// git add .
+// git commit -m "asdas"
+// git push
 }
