@@ -1,5 +1,6 @@
 package conjuntistas;
-
+import lineales.*;
+import lineales.dinamicas.Lista;
 public class ArbolBB {
     private NodoABB raiz;
 
@@ -126,5 +127,22 @@ public class ArbolBB {
             nodo = nodo.getIZquierdo();
         }
         return nodo;
+    }
+
+    public Lista listar(){
+        Lista l= new Lista();
+        if (this.raiz != null) {
+            recorrer(this.raiz, l);
+        }
+        return l;
+    }
+
+    private void recorrer(NodoABB nodo, Lista l){
+        
+        if (nodo != null) {
+            recorrer(nodo.getIZquierdo(),l );
+            l.insertar(nodo.getElem(), l.longitud()+1);
+            recorrer(nodo.getDerecho(), l);
+        }
     }
 }

@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import conjuntistas.*;
+import lineales.dinamicas.*;
 
 public class ArbolBBTest {
 
@@ -139,5 +140,11 @@ public class ArbolBBTest {
         assertTrue(exito);
 
         assertFalse(a.pertenece(10));
+    }
+
+    @Test
+    public void arbolListar(){
+        Lista l = arbol.listar();
+        assertEquals(l.toString(),"[20,30,40,50,60,70,80]");
     }
 }
