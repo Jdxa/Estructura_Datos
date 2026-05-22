@@ -1,6 +1,8 @@
 package conjuntistas;
+
 import lineales.*;
 import lineales.dinamicas.Lista;
+
 public class ArbolBB {
     private NodoABB raiz;
 
@@ -84,18 +86,18 @@ public class ArbolBB {
         NodoABB retornar = nodo;
         if (nodo != null) {
             int comp = elem.compareTo(nodo.getElem());
-            
+
             if (comp < 0) {
                 // busco x izquierda
                 NodoABB izq = nodo.getIZquierdo();
-                nodo.setIzquierdo(eliminaraux(izq, elem, exito)); //llamado hasta que izq == elem
+                nodo.setIzquierdo(eliminaraux(izq, elem, exito)); // llamado hasta que izq == elem
 
             } else if (comp > 0) {
                 // busco x derecha
                 NodoABB der = nodo.getDerecho();
-                nodo.setDerecho(eliminaraux(der, elem, exito)); //llamado hasta que der == elem
+                nodo.setDerecho(eliminaraux(der, elem, exito)); // llamado hasta que der == elem
             } else {
-                // lo encontro  elem == nodo.getElemento
+                // lo encontro elem == nodo.getElemento
                 exito[0] = true;
 
                 // caso 1: hoja
@@ -112,8 +114,10 @@ public class ArbolBB {
                 } else {
                     // ambos hijos ocupados
                     NodoABB reemplazo = obtenerMenor(nodo.getDerecho()); // menor nodo del subarbol derecho
-                    nodo.setElem(reemplazo.getElem()); //le pone el mas chico de los mayores
-                    nodo.setDerecho(eliminaraux(nodo.getDerecho(), reemplazo.getElem(), exito)); //borra el nodo de los mas chicos que puso como reemplazo
+                    nodo.setElem(reemplazo.getElem()); // le pone el mas chico de los mayores
+                    nodo.setDerecho(eliminaraux(nodo.getDerecho(), reemplazo.getElem(), exito)); // borra el nodo de los
+                                                                                                 // mas chicos que puso
+                                                                                                 // como reemplazo
                 }
             }
         }
@@ -129,20 +133,65 @@ public class ArbolBB {
         return nodo;
     }
 
-    public Lista listar(){
-        Lista l= new Lista();
+    public Lista listar() {
+        Lista l = new Lista();
         if (this.raiz != null) {
             recorrer(this.raiz, l);
         }
         return l;
     }
 
-    private void recorrer(NodoABB nodo, Lista l){
-        
+    private void recorrer(NodoABB nodo, Lista l) {
         if (nodo != null) {
-            recorrer(nodo.getIZquierdo(),l );
-            l.insertar(nodo.getElem(), l.longitud()+1);
+            recorrer(nodo.getIZquierdo(), l);
+            l.insertar(nodo.getElem(), l.longitud() + 1);
             recorrer(nodo.getDerecho(), l);
         }
+    }
+
+    public Lista listarRango(Comparable min, Comparable max) {
+        Lista l = new Lista();
+        if (this.raiz != null) {
+            listarRangoaux(this.raiz, min, max, l);
+        }
+        return l;
+    }
+
+    public void listarRangoaux(NodoABB nodo, Comparable min, Comparable max, Lista l) {
+        if (nodo != null) {
+            if (min.compareTo(nodo.getElem()) < 0) {
+                listarRangoaux(nodo.getIZquierdo(), min, max, l);
+            }
+            if (min.compareTo(nodo.getElem()) <= 0 && max.compareTo(nodo.getElem()) >=0) {
+                l.insertar(nodo.getElem(), l.longitud()+1);
+            }
+            if (max.compareTo(nodo.getElem()) > 0) {
+                listarRangoaux(nodo.getDerecho(), min, max, l);
+            }
+        }
+    }
+
+    public Comparable minimoElem(){
+        Comparable menor = null;
+        if (this.raiz != null) {
+            menor = obtenerMenor(this.raiz).getElem();            
+       }
+       return menor;
+    }
+    private NodoABB obtenerMayor(NodoABB nodo){
+    
+        while (nodo.getDerecho()!= null) {
+            
+            nodo = nodo.getDerecho();
+        }
+        return nodo;
+    }
+    public Comparable maximoElem(){
+        Comparable mayor =  null;
+        if (this.raiz!= null) {
+            mayor = obtenerMayor(this.raiz).getElem();    
+        }
+
+        return mayor;
     }
 }
