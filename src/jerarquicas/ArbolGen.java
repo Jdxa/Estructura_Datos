@@ -97,6 +97,9 @@ public class ArbolGen {
                 exito = true;
             }
 
+        } else {
+            this.raiz = new NodoGen(elemento, null, null);
+            exito = true;
         }
         return exito;
     }
@@ -169,10 +172,11 @@ public class ArbolGen {
 
                     hijo = hijo.getHermanoDerecho();
                 }
-            }
-            if (encontrado) {
-                // va insertando toda la cadena de ancestros
-                l.insertar(nodo.getElem(), 1);
+                // cuando lo encontró
+                if (encontrado) {
+                    // va insertando toda la cadena de ancestros
+                    l.insertar(nodo.getElem(), 1);
+                }
             }
         }
         return encontrado;
@@ -396,29 +400,56 @@ public class ArbolGen {
     }
 
     // ToString
+    // public String toString() {
+    // return toStringAux(this.raiz);
+    // }
+
+    // private String toStringAux(NodoGen nodo) {
+    // String s = "";
+    // if (nodo != null) {
+    // // visita el nodo n
+    // s += nodo.getElem() + " -> ";
+    // NodoGen hijo = nodo.getHijoIzquierdo();
+    // // esto anota todos los hijos de nodo
+    // while (hijo != null) {
+    // s += hijo.getElem() + ", ";
+    // hijo = hijo.getHermanoDerecho();
+    // }
+
+    // hijo = nodo.getHijoIzquierdo(); // ahora va al izquierdo de n
+    // while (hijo != null) {
+    // s += "\n" + toStringAux(hijo);
+    // hijo = hijo.getHermanoDerecho();
+    // }
+    // }
+
+    // return s;
+    // }
     public String toString() {
-        return toStringAux(this.raiz);
+        String cadena = "";
+        if (this.raiz != null) {
+            cadena = toStringAux(this.raiz);
+        }
+        return cadena;
     }
 
-    private String toStringAux(NodoGen nodo) {
+    private String toStringAux(NodoGen n) {
         String s = "";
-        if (nodo != null) {
-            // visita el nodo n
-            s += nodo.getElem() + " -> ";
-            NodoGen hijo = nodo.getHijoIzquierdo();
-            // esto anota todos los hijos de nodo
+        if (n != null) {
+            s += n.getElem().toString() + ":";
+            NodoGen hijo = n.getHijoIzquierdo();
             while (hijo != null) {
-                s += hijo.getElem() + ", ";
+                s += hijo.getElem().toString();
                 hijo = hijo.getHermanoDerecho();
+                if (hijo != null)
+                    s += ",";
             }
-
-            hijo = nodo.getHijoIzquierdo(); // ahora va al izquierdo de n
+            hijo = n.getHijoIzquierdo();
             while (hijo != null) {
-                s += "\n" + toStringAux(hijo);
+                s += '\n' + toStringAux(hijo);
                 hijo = hijo.getHermanoDerecho();
             }
         }
-
         return s;
     }
 
