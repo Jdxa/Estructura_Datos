@@ -69,34 +69,35 @@ public class ArbolGen {
     public boolean insertarPorPosicion(Object elemento, int posPadre) {
         boolean exito = false;
         if (this.raiz != null) {
-            int[] cont = { 1 };
-            // defino nodo a insertar, nodo padre obtenido por pos, y su hijo
-            NodoGen nuevo = new NodoGen(elemento, null, null);
-            NodoGen padre = buscarPos(this.raiz, posPadre, cont);
-            if (padre != null) {
-                // si el padre exite
-                NodoGen hijoPadre = padre.getHijoIzquierdo(); // le pregunto su hijo
+            if (posPadre > 0) {
+                int[] cont = { 1 };
+                // defino nodo a insertar, nodo padre obtenido por pos, y su hijo
+                NodoGen nuevo = new NodoGen(elemento, null, null);
+                NodoGen padre = buscarPos(this.raiz, posPadre, cont);
+                if (padre != null) {
+                    // si el padre exite
+                    NodoGen hijoPadre = padre.getHijoIzquierdo(); // le pregunto su hijo
 
-                if (hijoPadre == null) {
-                    // si no tiene hijos lo pongo como hijo al nuevo
-                    padre.setHijoIzquierdo(nuevo);
+                    if (hijoPadre == null) {
+                        // si no tiene hijos lo pongo como hijo al nuevo
+                        padre.setHijoIzquierdo(nuevo);
 
-                } else {
-                    // si tiene hijos voy hasta su ultimo hijo
-                    // alternativa para insertar a la derecha
-                    // while (hijoPadre.getHermanoDerecho() != null) {
-                    // hijoPadre = hijoPadre.getHermanoDerecho();
-                    // }
-                    // hijoPadre.setHermanoDerecho(nuevo);
-                    // alternativa mas eficiente, mueve todos los hermanos a la derecha, al ser
-                    // todos hijos del padre moverlos no cambia la estructura
-                    nuevo.setHermanoDerecho(hijoPadre);
-                    padre.setHijoIzquierdo(nuevo);
+                    } else {
+                        // si tiene hijos voy hasta su ultimo hijo
+                        // alternativa para insertar a la derecha
+                        // while (hijoPadre.getHermanoDerecho() != null) {
+                        // hijoPadre = hijoPadre.getHermanoDerecho();
+                        // }
+                        // hijoPadre.setHermanoDerecho(nuevo);
+                        // alternativa mas eficiente, mueve todos los hermanos a la derecha, al ser
+                        // todos hijos del padre moverlos no cambia la estructura
+                        nuevo.setHermanoDerecho(hijoPadre);
+                        padre.setHijoIzquierdo(nuevo);
+                    }
+
+                    exito = true;
                 }
-
-                exito = true;
             }
-
         } else {
             this.raiz = new NodoGen(elemento, null, null);
             exito = true;
