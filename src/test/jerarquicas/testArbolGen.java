@@ -1,4 +1,4 @@
-package test.conjuntistas;
+package test.jerarquicas;
 import static org.junit.Assert.*;
 
 import java.util.regex.Matcher;
