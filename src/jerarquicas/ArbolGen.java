@@ -19,22 +19,9 @@ public class ArbolGen {
             NodoGen nodoPadre = buscarNodo(this.raiz, padre);
             // si encontro al padre puede insertarlo -> siempre es true
             if (nodoPadre != null) {
-
-                // si no tiene hijos el padre
-                if (nodoPadre.getHijoIzquierdo() == null) {
-                    nodoPadre.setHijoIzquierdo(nuevo);
-                } else {
-                    // Si tiene hijos busco el ultimo hermano
-                    NodoGen aux = nodoPadre.getHijoIzquierdo();
-                    // while (aux.getHermanoDerecho() != null) {
-                    // aux = aux.getHermanoDerecho();
-                    // }
-                    // aux.setHermanoDerecho(nuevo);
-                    // otra alternativa
-                    nuevo.setHermanoDerecho(aux);
-                    nodoPadre.setHijoIzquierdo(nuevo);
-
-                }
+                NodoGen aux = nodoPadre.getHijoIzquierdo();
+                nuevo.setHermanoDerecho(aux);
+                nodoPadre.setHijoIzquierdo(nuevo);
                 exito = true;
             }
 
@@ -77,24 +64,8 @@ public class ArbolGen {
                 if (padre != null) {
                     // si el padre exite
                     NodoGen hijoPadre = padre.getHijoIzquierdo(); // le pregunto su hijo
-
-                    if (hijoPadre == null) {
-                        // si no tiene hijos lo pongo como hijo al nuevo
-                        padre.setHijoIzquierdo(nuevo);
-
-                    } else {
-                        // si tiene hijos voy hasta su ultimo hijo
-                        // alternativa para insertar a la derecha
-                        // while (hijoPadre.getHermanoDerecho() != null) {
-                        // hijoPadre = hijoPadre.getHermanoDerecho();
-                        // }
-                        // hijoPadre.setHermanoDerecho(nuevo);
-                        // alternativa mas eficiente, mueve todos los hermanos a la derecha, al ser
-                        // todos hijos del padre moverlos no cambia la estructura
-                        nuevo.setHermanoDerecho(hijoPadre);
-                        padre.setHijoIzquierdo(nuevo);
-                    }
-
+                    nuevo.setHermanoDerecho(hijoPadre);
+                    padre.setHijoIzquierdo(nuevo);
                     exito = true;
                 }
             }
