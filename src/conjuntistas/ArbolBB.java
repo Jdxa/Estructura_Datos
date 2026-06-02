@@ -194,4 +194,61 @@ public class ArbolBB {
 
         return mayor;
     }
+
+    public void eliminarMenor(){
+        if (this.raiz != null) {
+            //al cambiar la raiz cambia el arbol
+            this.raiz = eliminarMenorAux(this.raiz);
+        }
+    }
+
+    private NodoABB eliminarMenorAux(NodoABB nodo){
+        //retorna la raiz del nuevo arbol eliminado el menor de este
+        NodoABB res;
+        if (nodo.getIZquierdo() == null) {
+            //caso base: encontre al menor -> retorno su hermano derecho (puede ser null)
+            res = nodo.getDerecho();
+        }else{
+            //va seteando izquierdo el nodo izquierdo hasta que su izquierdo sea nulo, ahi caso base
+            nodo.setIzquierdo(eliminarMenorAux(nodo.getIZquierdo()));
+            res= nodo;
+        }
+        return res;
+    }
+
+    private NodoABB buscar(Comparable elem, NodoABB nodo){
+        NodoABB res = null;
+        if (nodo!= null) {
+            int comp = elem.compareTo(nodo.getElem());
+            if (comp < 0) {
+                res = buscar(elem, nodo.getIZquierdo());
+            }else if (comp > 0){
+                res = buscar(elem, nodo.getDerecho());
+            }else{
+                res = nodo;
+            }
+        }
+        return res;
+    }
+    private NodoABB invertir(NodoABB nodo){
+        NodoABB res;
+        if (nodo != null) {
+            res = new NodoABB(nodo.getElem(),null,null);
+            res.setIzquierdo(invertir(nodo.getDerecho()));
+            res.setDerecho(invertir(nodo.getIZquierdo()));
+        }else{
+            res= null;
+        }
+        return res;
+    }
+
+    public ArbolBB clonarParteInvertida(Comparable elem){
+        ArbolBB clon = new ArbolBB();
+        NodoABB subraiz = buscar(elem, this.raiz); //busco la subraiz original
+        if (subraiz != null) {
+            NodoABB nuevaRaiz = invertir(subraiz); //invierto la subraiz original
+            clon.raiz = nuevaRaiz;  //le asigno la raiz al clon
+        }
+        return clon;
+    }
 }

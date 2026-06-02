@@ -425,4 +425,147 @@ public class ArbolGen {
         return s;
     }
 
+    public boolean verificarCamino(Lista l) {
+        boolean res = false;
+        // casos: l es vacia, arbol es vacio, el primer elemento no coincide, caso malo:
+        // hay que verificar el arbol -> metodo privado
+        if (l.esVacia()) {
+            // lista vacia -> es un camino del arbol
+            res = false;
+        } else if (this.raiz != null) {
+            // el arbol esta vacio?
+            // no -> verifico si son iguales el primer elemento de la lista y del arbol,
+            // sino no corresponde a un camino
+            Object a = l.recuperar(1);
+            if (this.raiz.getElem().equals(a)) {
+                // si coincide puedo recorrer
+                int longLista = l.longitud();
+                if (longLista == 1) {
+                    res = true;
+                } else {
+                    res = verificarCaminoaux(l, this.raiz.getHijoIzquierdo(), 2, longLista);
+                }
+
+            }
+        } // el arbol esta vacio
+        return res;
+    }
+
+    private boolean verificarCaminoaux(Lista l, NodoGen nodo, int pos, int longLista) {
+        // 20 ,54, 27
+        boolean res = false;
+        // analizo la lista
+        if (pos > longLista) {
+            // caso corte: comprobe toda la lista y en efecto
+            res = true;
+        } else if (nodo != null) { // recorro siempre y cuando no sea nulo -> otro caso de corte
+            Object a = l.recuperar(pos);
+            if (nodo.getElem().equals(a)) {
+                if (pos == longLista) {
+                    // caso corte
+                    res = true;
+                } else {
+                    res = verificarCaminoaux(l, nodo.getHijoIzquierdo(), pos + 1, longLista);
+                }
+            } else {
+                res = verificarCaminoaux(l, nodo.getHermanoDerecho(), pos, longLista);
+            }
+        }
+        return res;
+    }
+
+    public Lista listarEntreNiveles(int niv1, int niv2) {
+        Lista l = new Lista();
+        if (this.raiz != null) {
+            int alt = this.altura();
+            if (0 <= niv1 && niv1 <= alt && 0 <= niv2 && niv2 <= alt) {
+                listarEntreNivelesAux(niv1, niv2, this.raiz, 0, l);
+            }
+        }
+        return l;
+    }
+
+    private void listarEntreNivelesAux(int niv1, int niv2, NodoGen nodo, int nivel, Lista l) {
+
+        if (nodo != null) {
+            // caso corte: nodo nulo
+            if (nivel >= niv1 && nivel <= niv2) {
+                // caso se insercion: que el nivel del nodo este entre niv1 y niv2
+                int longLista = l.longitud();
+                l.insertar(nodo.getElem(), longLista + 1);
+            }
+            if (nivel < niv2) {
+                // caso corte: llego hasta que nivel sea menos niv2 sino accederia al nodo de
+                // niv2+1
+                NodoGen hijo = nodo.getHijoIzquierdo();
+
+                while (hijo != null) {
+                    // visito por izquierda hasta null y luego veo su hermano y repite
+                    listarEntreNivelesAux(niv1, niv2, hijo, nivel + 1, l);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+
+        }
+    }
+
+    public void eliminar(Object elem) {
+        if (this.raiz != null) {
+            this.raiz = eliminarAux(this.raiz, elem);
+        }
+    }
+
+    private NodoGen eliminarAux(NodoGen nodo, Object elem) {
+        NodoGen resultado;
+
+        if (nodo == null) {
+            // Caso base 1: El nodo es nulo
+            resultado = null;
+        } else if (nodo.getElem().equals(elem)) {
+            // Caso base 2: Encontramos el elemento, devolvemos su hermano (puenteo)
+            resultado = nodo.getHermanoDerecho();
+        } else {
+            // Caso recursivo: No es el elemento, seguimos buscando y reconstruyendo
+            nodo.setHijoIzquierdo(eliminarAux(nodo.getHijoIzquierdo(), elem));
+            nodo.setHermanoDerecho(eliminarAux(nodo.getHermanoDerecho(), elem));
+            resultado = nodo;
+        }
+
+        return resultado;
+    }
+    // public void eliminar(Object elem) {
+    // if (this.raiz != null) {
+    // if (this.raiz.getElem().equals(elem)) {
+    // this.raiz = null;
+    // } else {
+    // eliminaraux(this.raiz, elem);
+    // }
+    // }
+    // }
+
+    // private void eliminaraux(NodoGen nodo, Object elem) {
+    // boolean flag = false;
+    // if (nodo != null) {
+    // if (nodo.getHijoIzquierdo() != null) {
+    // if (nodo.getHijoIzquierdo().getElem().equals(elem)) {
+    // flag = true;
+    // nodo.setHijoIzquierdo(nodo.getHijoIzquierdo().getHermanoDerecho());
+    // }
+    // }
+    // if (nodo.getHermanoDerecho() != null && !flag) {
+    // if (nodo.getHermanoDerecho().getElem().equals(elem)) {
+    // flag = true;
+    // nodo.setHermanoDerecho(nodo.getHermanoDerecho().getHermanoDerecho());
+    // }
+    // }
+    // if (!flag) {
+    // NodoGen hijo = nodo.getHijoIzquierdo();
+    // while (hijo != null) {
+    // eliminaraux(hijo, elem);
+    // hijo = hijo.getHermanoDerecho();
+    // }
+    // }
+    // }
+    // }
+
 }
