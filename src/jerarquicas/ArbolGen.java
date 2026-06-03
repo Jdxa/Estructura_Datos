@@ -568,4 +568,27 @@ public class ArbolGen {
     // }
     // }
 
+    public Lista listarHastaNivel(int nivel){
+        Lista l = new Lista();
+        if (this.raiz!= null) {
+            int [] pos = {1}; //asi no uso longitud()
+            listarHastaNivelAux(nivel, this.raiz, l, 0,pos);
+        }
+        return l;
+    }
+    private void listarHastaNivelAux(int nivel, NodoGen nodo, Lista l, int actual, int[]pos){
+        if (nodo != null) {
+            if (actual <= nivel) {
+                l.insertar(nodo.getElem(), pos[0]);
+                pos[0]++;
+            }
+            if (actual < nivel) {
+                NodoGen hijo = nodo.getHijoIzquierdo();
+                while (hijo != null) {
+                    listarHastaNivelAux(nivel, hijo, l, actual+1,pos);
+                    hijo = hijo.getHermanoDerecho();
+                }
+            }
+        }
+    }
 }
