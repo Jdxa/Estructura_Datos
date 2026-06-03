@@ -267,15 +267,13 @@ public class ArbolBB {
 
     private void listarMayorIgualAux(Comparable elem, Lista l, NodoABB nodo) {
         if (nodo != null) {
-            int comp = nodo.getElem().compareTo(elem);
+            int comp = nodo.getElem().compareTo(elem); // a.compareTo(b)  a > b -> 1 , a < b -> -1, a = b -> 0
             if (comp > 0) {
                 listarMayorIgualAux(elem, l, nodo.getIZquierdo());
-                
             }
             if (comp >= 0) {
                 l.insertar(nodo.getElem(), 1);
             }
-        
             listarMayorIgualAux(elem, l, nodo.getDerecho());
         }
     }
