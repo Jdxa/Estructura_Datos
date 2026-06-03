@@ -162,8 +162,8 @@ public class ArbolBB {
             if (min.compareTo(nodo.getElem()) < 0) {
                 listarRangoaux(nodo.getIZquierdo(), min, max, l);
             }
-            if (min.compareTo(nodo.getElem()) <= 0 && max.compareTo(nodo.getElem()) >=0) {
-                l.insertar(nodo.getElem(), l.longitud()+1);
+            if (min.compareTo(nodo.getElem()) <= 0 && max.compareTo(nodo.getElem()) >= 0) {
+                l.insertar(nodo.getElem(), l.longitud() + 1);
             }
             if (max.compareTo(nodo.getElem()) > 0) {
                 listarRangoaux(nodo.getDerecho(), min, max, l);
@@ -171,84 +171,112 @@ public class ArbolBB {
         }
     }
 
-    public Comparable minimoElem(){
+    public Comparable minimoElem() {
         Comparable menor = null;
         if (this.raiz != null) {
-            menor = obtenerMenor(this.raiz).getElem();            
-       }
-       return menor;
+            menor = obtenerMenor(this.raiz).getElem();
+        }
+        return menor;
     }
-    private NodoABB obtenerMayor(NodoABB nodo){
-    
-        while (nodo.getDerecho()!= null) {
-            
+
+    private NodoABB obtenerMayor(NodoABB nodo) {
+
+        while (nodo.getDerecho() != null) {
+
             nodo = nodo.getDerecho();
         }
         return nodo;
     }
-    public Comparable maximoElem(){
-        Comparable mayor =  null;
-        if (this.raiz!= null) {
-            mayor = obtenerMayor(this.raiz).getElem();    
+
+    public Comparable maximoElem() {
+        Comparable mayor = null;
+        if (this.raiz != null) {
+            mayor = obtenerMayor(this.raiz).getElem();
         }
 
         return mayor;
     }
 
-    public void eliminarMenor(){
+    public void eliminarMenor() {
         if (this.raiz != null) {
-            //al cambiar la raiz cambia el arbol
+            // al cambiar la raiz cambia el arbol
             this.raiz = eliminarMenorAux(this.raiz);
         }
     }
 
-    private NodoABB eliminarMenorAux(NodoABB nodo){
-        //retorna la raiz del nuevo arbol eliminado el menor de este
+    private NodoABB eliminarMenorAux(NodoABB nodo) {
+        // retorna la raiz del nuevo arbol eliminado el menor de este
         NodoABB res;
         if (nodo.getIZquierdo() == null) {
-            //caso base: encontre al menor -> retorno su hermano derecho (puede ser null)
+            // caso base: encontre al menor -> retorno su hermano derecho (puede ser null)
             res = nodo.getDerecho();
-        }else{
-            //va seteando izquierdo el nodo izquierdo hasta que su izquierdo sea nulo, ahi caso base
+        } else {
+            // va seteando izquierdo el nodo izquierdo hasta que su izquierdo sea nulo, ahi
+            // caso base
             nodo.setIzquierdo(eliminarMenorAux(nodo.getIZquierdo()));
-            res= nodo;
+            res = nodo;
         }
         return res;
     }
 
-    private NodoABB buscar(Comparable elem, NodoABB nodo){
+    private NodoABB buscar(Comparable elem, NodoABB nodo) {
         NodoABB res = null;
-        if (nodo!= null) {
+        if (nodo != null) {
             int comp = elem.compareTo(nodo.getElem());
             if (comp < 0) {
                 res = buscar(elem, nodo.getIZquierdo());
-            }else if (comp > 0){
+            } else if (comp > 0) {
                 res = buscar(elem, nodo.getDerecho());
-            }else{
+            } else {
                 res = nodo;
             }
         }
         return res;
     }
-    private NodoABB invertir(NodoABB nodo){
+
+    private NodoABB invertir(NodoABB nodo) {
         NodoABB res;
         if (nodo != null) {
-            res = new NodoABB(nodo.getElem(),null,null);
+            res = new NodoABB(nodo.getElem(), null, null);
             res.setIzquierdo(invertir(nodo.getDerecho()));
             res.setDerecho(invertir(nodo.getIZquierdo()));
-        }else{
-            res= null;
+        } else {
+            res = null;
         }
         return res;
     }
 
-    public ArbolBB clonarParteInvertida(Comparable elem){
+    public ArbolBB clonarParteInvertida(Comparable elem) {
         ArbolBB clon = new ArbolBB();
-        NodoABB subraiz = buscar(elem, this.raiz); //busco la subraiz original
+        NodoABB subraiz = buscar(elem, this.raiz); // busco la subraiz original
         if (subraiz != null) {
-            NodoABB nuevaRaiz = invertir(subraiz); //invierto la subraiz original
-            clon.raiz = nuevaRaiz;  //le asigno la raiz al clon
+            NodoABB nuevaRaiz = invertir(subraiz); // invierto la subraiz original
+            clon.raiz = nuevaRaiz; // le asigno la raiz al clon
         }
         return clon;
+    }
+
+    public Lista listarMayorIgual(Comparable elem) {
+        Lista l = new Lista();
+        if (this.raiz != null) {
+
+            listarMayorIgualAux(elem, l, this.raiz);
+        }
+        return l;
+    }
+
+    private void listarMayorIgualAux(Comparable elem, Lista l, NodoABB nodo) {
+        if (nodo != null) {
+            int comp = nodo.getElem().compareTo(elem);
+            if (comp > 0) {
+                listarMayorIgualAux(elem, l, nodo.getIZquierdo());
+                
+            }
+            if (comp >= 0) {
+                l.insertar(nodo.getElem(), 1);
+            }
+        
+            listarMayorIgualAux(elem, l, nodo.getDerecho());
+        }
     }
 }

@@ -568,15 +568,16 @@ public class ArbolGen {
     // }
     // }
 
-    public Lista listarHastaNivel(int nivel){
+    public Lista listarHastaNivel(int nivel) {
         Lista l = new Lista();
-        if (this.raiz!= null) {
-            int [] pos = {1}; //asi no uso longitud()
-            listarHastaNivelAux(nivel, this.raiz, l, 0,pos);
+        if (this.raiz != null) {
+            int[] pos = { 1 }; // asi no uso longitud()
+            listarHastaNivelAux(nivel, this.raiz, l, 0, pos);
         }
         return l;
     }
-    private void listarHastaNivelAux(int nivel, NodoGen nodo, Lista l, int actual, int[]pos){
+
+    private void listarHastaNivelAux(int nivel, NodoGen nodo, Lista l, int actual, int[] pos) {
         if (nodo != null) {
             if (actual <= nivel) {
                 l.insertar(nodo.getElem(), pos[0]);
@@ -585,10 +586,42 @@ public class ArbolGen {
             if (actual < nivel) {
                 NodoGen hijo = nodo.getHijoIzquierdo();
                 while (hijo != null) {
-                    listarHastaNivelAux(nivel, hijo, l, actual+1,pos);
+                    listarHastaNivelAux(nivel, hijo, l, actual + 1, pos);
                     hijo = hijo.getHermanoDerecho();
                 }
             }
         }
+    }
+
+    public boolean verificarCaminoHoja(Lista l) {
+        boolean res = false;
+        if (this.raiz != null) {
+            if (!l.esVacia()) {
+                if (this.raiz.getElem().equals(l.recuperar(1))) {
+                    int longL = l.longitud();
+                    res = verificarCaminoHojaAux(l, this.raiz.getHijoIzquierdo(), 2, longL);
+                }
+            }
+        }
+        return res;
+    }
+
+    private boolean verificarCaminoHojaAux(Lista l, NodoGen nodo, int pos, int longL) {
+        boolean res = false;
+        // analizo la lista
+        if (nodo != null && pos < longL) { // recorro siempre y cuando no sea nulo -> otro caso de corte
+            Object a = l.recuperar(pos);
+            if (nodo.getElem().equals(a)) {
+                if (pos == longL && nodo.getHijoIzquierdo() == null) {
+                    // caso corte
+                    res = true;
+                } else {
+                    res = verificarCaminoaux(l, nodo.getHijoIzquierdo(), pos + 1, longL);
+                }
+            } else {
+                res = verificarCaminoaux(l, nodo.getHermanoDerecho(), pos, longL);
+            }
+        }
+        return res;
     }
 }

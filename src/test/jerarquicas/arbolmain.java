@@ -6,13 +6,10 @@ import lineales.dinamicas.Lista;
 public class arbolmain {
     public static void main(String[] args) {
         ArbolGen arb = cargarArb();
-        Lista l = arb.listarPreorden();
+        System.out.println(arb.toString());
+        Lista l = cargarLista("20,12");
         System.out.println(l.toString());
-        arb.eliminar(20);
-        l = arb.listarPreorden();
-        System.out.println(l.toString());
-
-        
+        System.out.println(arb.verificarCaminoHoja(l));
         
     }
     public static ArbolGen cargarArb(){

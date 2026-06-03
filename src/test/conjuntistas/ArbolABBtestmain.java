@@ -5,18 +5,17 @@ public class ArbolABBtestmain {
     public static void main(String[] args) {
         ArbolBB arbol = new ArbolBB();
         cargarArb(arbol);
-        ArbolBB clon = arbol.clonarParteInvertida(13);
-        Lista l = clon.listar();
-        System.out.println(l.toString()); // esperado -> [24,15,13,7]
+        Lista l = arbol.listarMayorIgual(5);
+        System.out.println(l.toString());
     }
 
     public static void cargarArb(ArbolBB a){
-        a.insertar(56);
-        a.insertar(13);
-        a.insertar(78);
+        a.insertar(10);
+        a.insertar(4);
+        a.insertar(5);
+        a.insertar(6);
         a.insertar(7);
-        a.insertar(24);
-        a.insertar(15);
-        a.insertar(100);
+        a.insertar(8);
+        a.insertar(12);
     }
 }
