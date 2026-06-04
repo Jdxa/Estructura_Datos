@@ -277,4 +277,28 @@ public class ArbolBB {
             listarMayorIgualAux(elem, l, nodo.getDerecho());
         }
     }
+    public Lista listarMenor(Comparable elem) {
+        Lista l = new Lista();
+        if (this.raiz != null) {
+
+            listarMenorAux(elem, l, this.raiz);
+        }
+        return l;
+    }
+
+    private void listarMenorAux(Comparable elem, Lista l, NodoABB nodo) {
+        //que pasa si dejo la bajada izquierda afuera del if y saco la de dentro? 
+        if (nodo != null) {
+            int comp = nodo.getElem().compareTo(elem); // a.compareTo(b)  a > b -> 1 , a < b -> -1, a = b -> 0
+            if (comp < 0) {
+                listarMenorAux(elem, l, nodo.getDerecho());
+                l.insertar(nodo.getElem(), 1);                  //recorro en in-orden inverso con nodos menores a elem
+                listarMenorAux(elem, l, nodo.getIZquierdo());
+            }else{
+                listarMenorAux(elem, l, nodo.getIZquierdo());       //si el nodo es mayor a elem bajo por la izquierda que se que es menor a la raiz
+            }
+            
+            
+        }
+    }
 }

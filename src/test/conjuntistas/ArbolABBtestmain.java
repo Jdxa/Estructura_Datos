@@ -5,7 +5,7 @@ public class ArbolABBtestmain {
     public static void main(String[] args) {
         ArbolBB arbol = new ArbolBB();
         cargarArb(arbol);
-        Lista l = arbol.listarMayorIgual(5);
+        Lista l = arbol.listarMenor(6);
         System.out.println(l.toString());
     }
 
@@ -17,5 +17,7 @@ public class ArbolABBtestmain {
         a.insertar(7);
         a.insertar(8);
         a.insertar(12);
+        a.insertar(3);
+        a.insertar(2);
     }
 }
