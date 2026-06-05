@@ -2,27 +2,41 @@ package test.jerarquicas;
 
 import jerarquicas.ArbolGen;
 import lineales.dinamicas.Lista;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+import conjuntistas.ArbolBB;
 // import lineales.dinamicas.*;
 public class arbolmain {
     public static void main(String[] args) {
-        ArbolGen arb = cargarArb();
-        System.out.println(arb.toString());
-        Lista l = cargarLista("20,12");
-        System.out.println(l.toString());
-        System.out.println(arb.verificarCaminoHoja(l));
-        
+         ArbolGen arb = cargarArb();
+         System.out.println(arb.toString());
+         
+        // System.out.println(arb);
+        Lista l = arb.listaQueJustificaAltura();
+
     }
+    @Test
+
+
     public static ArbolGen cargarArb(){
         ArbolGen arb = new ArbolGen();
-        arb.insertar(20, null);
-        arb.insertar(54, 20);
-        arb.insertar(13, 20);
-        arb.insertar(12, 13);
-        arb.insertar(15, 13);
-        arb.insertar(4, 54);
-        arb.insertar(27, 54);
-        arb.insertar(11, 54);
-        arb.insertar(17, 27);
+        arb.insertar(1, null);
+        arb.insertar(2, 1);
+        arb.insertar(3, 1);
+        arb.insertar(4, 1);
+        arb.insertar(5, 2);
+        arb.insertar(6, 2);
+        arb.insertar(7, 6);
+        arb.insertar(8, 3);
+        arb.insertar(9,8 );
+        arb.insertar(10,8 );
+        arb.insertar(11, 10);
+        arb.insertar(12, 4);
+        arb.insertar(15, 12);
         return arb;
     }
 

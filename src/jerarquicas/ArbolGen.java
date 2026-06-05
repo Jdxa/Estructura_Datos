@@ -180,6 +180,7 @@ public class ArbolGen {
                 }
                 hijo = hijo.getHermanoDerecho();
             }
+
         }
         return res;
     }
@@ -511,11 +512,12 @@ public class ArbolGen {
 
     public void eliminar(Object elem) {
         if (this.raiz != null) {
-            this.raiz = eliminarAux(this.raiz, elem);
+            boolean[] exito = {false};
+            this.raiz = eliminarAux(this.raiz, elem, exito);
         }
     }
 
-    private NodoGen eliminarAux(NodoGen nodo, Object elem) {
+    private NodoGen eliminarAux(NodoGen nodo, Object elem, boolean[] exito) {
         NodoGen resultado;
 
         if (nodo == null) {
@@ -524,10 +526,15 @@ public class ArbolGen {
         } else if (nodo.getElem().equals(elem)) {
             // Caso base 2: Encontramos el elemento, devolvemos su hermano (puenteo)
             resultado = nodo.getHermanoDerecho();
+            exito[0]=true;
         } else {
             // Caso recursivo: No es el elemento, seguimos buscando y reconstruyendo
-            nodo.setHijoIzquierdo(eliminarAux(nodo.getHijoIzquierdo(), elem));
-            nodo.setHermanoDerecho(eliminarAux(nodo.getHermanoDerecho(), elem));
+            if (!exito[0]) {
+            nodo.setHijoIzquierdo(eliminarAux(nodo.getHijoIzquierdo(), elem,exito));
+            }
+            if (!exito[0]) { 
+            nodo.setHermanoDerecho(eliminarAux(nodo.getHermanoDerecho(), elem,exito));    
+            }
             resultado = nodo;
         }
 
@@ -623,5 +630,35 @@ public class ArbolGen {
             }
         }
         return res;
+    }
+
+    public Lista listaQueJustificaAltura(){
+        Lista actual = new Lista();
+        Lista larga = new Lista();
+        if (this.raiz != null) {
+            larga =listaLargaAux(this.raiz, larga, actual);
+        }
+        return larga;
+    }
+    
+    private Lista listaLargaAux(NodoGen nodo, Lista larga, Lista actual){
+        if (nodo!=null) {
+            actual.insertar(nodo.getElem(), actual.longitud()+1);
+            System.out.println("actual"+actual.toString()+" larga"+larga.toString());
+            NodoGen hijo = nodo.getHijoIzquierdo();
+            while (hijo != null) {
+                larga = listaLargaAux(hijo, larga, actual);
+                if (actual.longitud() > larga.longitud()) {
+                    System.out.println("entro a clonar");
+                    larga = actual.clone();
+                }
+                
+                hijo = hijo.getHermanoDerecho();
+            }
+            actual.eliminar(actual.longitud());
+
+        }
+         System.out.println("salida :actual"+actual.toString()+" larga"+larga.toString());
+        return larga;
     }
 }

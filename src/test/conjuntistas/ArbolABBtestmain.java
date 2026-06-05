@@ -5,14 +5,14 @@ public class ArbolABBtestmain {
     public static void main(String[] args) {
         ArbolBB arbol = new ArbolBB();
         cargarArb(arbol);
-        Lista l = arbol.listarMenor(6);
+        Lista l = arbol.listar();
         System.out.println(l.toString());
     }
 
     public static void cargarArb(ArbolBB a){
-        a.insertar(10);
-        a.insertar(4);
-        a.insertar(5);
+        a.insertar(1);
+        a.insertar(2);
+        a.insertar(3);
         a.insertar(6);
         a.insertar(7);
         a.insertar(8);
